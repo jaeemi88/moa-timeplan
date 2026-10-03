@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="졸업까지 남은 시간을 확인하고 이번 주 일정과 점검 알림을 캘린더에 넣는 진로모아 시간 설계도">
+<title>MOA 시간 설계도</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+body{margin:0}
+/* Layout: single mobile column, step chips on top, big-number result card, then calendar block list */
+:root{
+  --brand:#0E7C74; --brand-ink:#FFFFFF; --brand-soft:#E3F3F1;
+  --bg:#FFFFFF; --surface:#F5F8F8; --line:#DCE6E5;
+  --fg:#16302E; --muted:#5E7472; --warn:#B4541A;
+  --font:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --brand:#3FC2B6; --brand-ink:#06201E; --brand-soft:#123432;
+  --bg:#0F1817; --surface:#162322; --line:#263937;
+  --fg:#E6F2F0; --muted:#93AAA7; --warn:#F0A060; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --brand:#3FC2B6; --brand-ink:#06201E; --brand-soft:#123432;
+  --bg:#0F1817; --surface:#162322; --line:#263937;
+  --fg:#E6F2F0; --muted:#93AAA7; --warn:#F0A060; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.55}
+.wrap{max-width:520px;margin:0 auto;padding-inline:16px;padding-block:14px 48px}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.logo{font-weight:900;letter-spacing:.14em;font-size:12px;color:var(--brand)}
+.logo span{color:var(--muted);font-weight:500;letter-spacing:.04em;margin-left:6px}
+.tag{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+h1{font-size:24px;font-weight:900;margin:18px 0 4px;text-wrap:balance}
+.lead{color:var(--muted);margin:0 0 16px;font-size:14px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:20px}
+.step{text-align:center;padding:8px 2px;border-radius:12px;background:var(--surface);color:var(--muted);font-size:12px;border:1px solid transparent}
+.step b{display:block;font-size:18px;color:var(--fg)}
+.step.on{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
+.step.on b{color:var(--brand)}
+section{margin-top:26px}
+h2{font-size:17px;font-weight:700;margin:0 0 4px;display:flex;gap:8px;align-items:center}
+h2 .k{background:var(--brand);color:var(--brand-ink);border-radius:8px;width:26px;height:26px;display:inline-grid;place-items:center;font-size:14px}
+.hint{color:var(--muted);font-size:13px;margin:0 0 12px}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-size:13px;font-weight:500}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;min-width:64px;padding:9px 6px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:inherit;font-size:14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);font-weight:700}
+.range{display:flex;align-items:center;gap:12px}
+.range input{flex:1;accent-color:var(--brand)}
+.range output{min-width:64px;text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.result{background:var(--surface);border-radius:16px;padding:18px;display:grid;gap:14px}
+.big{display:flex;align-items:baseline;gap:6px}
+.big strong{font-size:48px;font-weight:900;line-height:1;color:var(--brand);font-variant-numeric:tabular-nums}
+.big span{font-size:15px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.mini small{display:block;color:var(--muted);font-size:12px}
+.mini b{font-size:20px;font-variant-numeric:tabular-nums}
+.callout{background:var(--brand-soft);border-radius:12px;padding:12px 14px;font-size:14px}
+.callout b{color:var(--brand)}
+.block{border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;gap:10px;margin-bottom:10px;background:var(--bg)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row > *{min-width:0}
+input[type=text],input[type=time],select{font:inherit;font-size:14px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+input[type=text]{flex:1 1 160px}
+.days{display:flex;gap:4px;flex-wrap:wrap}
+.days button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:inherit;font-size:13px;cursor:pointer}
+.days button[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);font-weight:700}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 14px;border-radius:12px;background:var(--brand);color:var(--brand-ink);font-weight:700;font-size:14px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
+.btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.summary{font-size:13px;color:var(--muted)}
+.del{background:none;border:0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;margin-left:auto}
+.routine{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--line);border-radius:14px;margin-bottom:8px}
+.routine div{flex:1;min-width:0}
+.routine b{display:block;font-size:14px}
+.routine small{color:var(--muted);font-size:12px}
+.note{font-size:12px;color:var(--muted);margin-top:10px}
+.sample{font-size:11px;color:var(--warn);font-weight:500}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+</style>
+</head><body>
+
+<div class="wrap">
+  <header>
+    <div class="logo">MOA FORMULA<span>진로모아</span></div>
+    <div class="tag">v1.0</div>
+  </header>
+
+  <h1>나의 시간 설계도</h1>
+  <p class="lead">졸업까지 남은 시간을 확인하고, 이번 주 일정과 점검 알림을 내 캘린더에 넣어요.</p>
+
+  <div class="steps" aria-label="진장단점 단계">
+    <div class="step on"><b>진</b>시간 진단</div>
+    <div class="step"><b>장</b>장기 설계</div>
+    <div class="step on"><b>단</b>단기 설계</div>
+    <div class="step on"><b>점</b>점검 루틴</div>
+  </div>
+
+  <section id="diag">
+    <h2><span class="k">진</span>졸업까지 남은 시간</h2>
+    <p class="hint">예시 값이 들어 있어요. 내 상황으로 바꿔 보세요.</p>
+
+    <div class="field"><label>학제</label>
+      <div class="seg" id="sys"><button data-v="2">2년제</button><button data-v="3">3년제</button><button data-v="4" aria-pressed="true">4년제</button></div></div>
+    <div class="field"><label>현재 학년</label>
+      <div class="seg" id="grade"></div></div>
+    <div class="field"><label for="phone">하루 스마트폰 사용 시간 <span class="summary">(스크린타임 확인)</span></label>
+      <div class="range"><input id="phone" type="range" min="0" max="10" step="0.5" value="4"><output id="phoneOut">4시간</output></div></div>
+    <div class="field"><label for="free">일주일 자유시간 <span class="summary">(수업·수면·알바 제외)</span></label>
+      <div class="range"><input id="free" type="range" min="0" max="80" step="1" value="35"><output id="freeOut">35시간</output></div></div>
+
+    <div class="result" aria-live="polite">
+      <div>
+        <div class="summary" id="gradDate"></div>
+        <div class="big"><strong id="weeks">0</strong><span>주 남았어요</span></div>
+      </div>
+      <div class="grid2">
+        <div class="mini"><small>졸업까지 내 자유시간</small><b id="freeTotal">0</b><small>시간</small></div>
+        <div class="mini"><small>졸업까지 폰 사용 시간</small><b id="phoneTotal">0</b><small>시간</small></div>
+      </div>
+      <div class="callout" id="gain"></div>
+    </div>
+  </section>
+
+  <section id="plan">
+    <h2><span class="k">단</span>이번 주 타임블록</h2>
+    <p class="hint">요일과 시간을 정하고 <b>캘린더에 추가</b>를 누르면 매주 반복 일정으로 들어가요.</p>
+    <div id="blocks"></div>
+    <button class="btn ghost" id="addBlock" type="button">+ 블록 추가</button>
+  </section>
+
+  <section id="check">
+    <h2><span class="k">점</span>점검 루틴</h2>
+    <p class="hint">계획은 고치면서 가는 거예요. 반복 알림으로 넣어 두세요.</p>
+    <div id="routines"></div>
+    </section>
+  <section id="all">
+    <h2><span class="k">↓</span>한 번에 모두 넣기</h2>
+    <p class="hint">아이폰·삼성 캘린더를 쓰면 이 버튼을 누르세요. 위의 타임블록과 점검 루틴이 모두 들어간 캘린더 파일이 열려요.</p>
+    <button class="btn" id="ics" type="button" style="width:100%">아이폰·삼성 캘린더에 모두 추가</button>
+    <p class="note">구글 캘린더를 쓰면 각 일정의 '캘린더에 추가' 버튼을 눌러도 돼요.</p>
+  </section>
+</div>
+
+<script>
+const DAYS=[['MO','월'],['TU','화'],['WE','수'],['TH','목'],['FR','금'],['SA','토'],['SU','일']];
+const state={sys:4,grade:2,phone:4,free:35,blocks:[
+  {id:1,title:'토익 공부',days:['TU','TH'],time:'19:00',dur:60},
+  {id:2,title:'자격증 문제 풀이',days:['SA'],time:'10:00',dur:120}
+]};
+let nextId=3;let ROUTINES=[];
+const $=s=>document.querySelector(s);
+const fmt=n=>Math.round(n).toLocaleString('ko-KR');
+
+function setSeg(el,val){el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.v===val)))}
+function renderGrades(){
+  const g=$('#grade');g.innerHTML='';
+  if(state.grade>state.sys)state.grade=state.sys;
+  for(let i=1;i<=state.sys;i++){const b=document.createElement('button');b.type='button';b.dataset.v=i;b.textContent=i+'학년';g.appendChild(b)}
+  setSeg(g,state.grade);
+}
+function gradDate(){
+  const now=new Date();const y=now.getFullYear();const acad=now.getMonth()>=2?y:y-1;
+  return new Date(acad+(state.sys-state.grade)+1,1,20);
+}
+function calc(){
+  const gd=gradDate();const now=new Date();
+  const weeks=Math.max(0,Math.round((gd-now)/(7*864e5)));
+  $('#gradDate').textContent=`졸업 예정 ${gd.getFullYear()}년 2월 기준`;
+  $('#weeks').textContent=fmt(weeks);
+  $('#freeTotal').textContent=fmt(state.free*weeks);
+  $('#phoneTotal').textContent=fmt(state.phone*7*weeks);
+  $('#phoneOut').textContent=state.phone+'시간';
+  $('#freeOut').textContent=state.free+'시간';
+  $('#gain').innerHTML=`하루 폰 사용을 <b>1시간</b>만 줄이면 졸업까지 <b>${fmt(7*weeks)}시간</b>이 생겨요.`;
+}
+
+// Google Calendar template link
+const pad=n=>String(n).padStart(2,'0');
+const stamp=d=>`${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+function nextDate(byday,time){
+  const idx={SU:0,MO:1,TU:2,WE:3,TH:4,FR:5,SA:6};const [h,m]=time.split(':').map(Number);
+  const now=new Date();let best=null;
+  byday.forEach(d=>{const t=new Date(now);t.setHours(h,m,0,0);let add=(idx[d]-now.getDay()+7)%7;if(add===0&&t<=now)add=7;t.setDate(now.getDate()+add);if(!best||t<best)best=t});
+  return best;
+}
+function gcal({title,start,dur,rrule,details}){
+  const end=new Date(start.getTime()+dur*60000);
+  const p=new URLSearchParams({action:'TEMPLATE',text:title,dates:`${stamp(start)}/${stamp(end)}`,ctz:'Asia/Seoul',details:details||'MOA 시간 설계도'});
+  if(rrule)p.set('recur','RRULE:'+rrule);
+  return 'https://calendar.google.com/calendar/render?'+p.toString();
+}
+
+function renderBlocks(){
+  const box=$('#blocks');box.innerHTML='';
+  state.blocks.forEach(b=>{
+    const el=document.createElement('div');el.className='block';
+    const ok=b.title.trim()&&b.days.length;
+    const href=ok?gcal({title:b.title,start:nextDate(b.days,b.time),dur:b.dur,rrule:'FREQ=WEEKLY;BYDAY='+b.days.join(','),details:'MOA 시간 설계도 · 타임블록'}):'#';
+    const dayTxt=DAYS.filter(d=>b.days.includes(d[0])).map(d=>d[1]).join('·')||'요일 선택';
+    el.innerHTML=`
+      <div class="row"><input type="text" id="t${b.id}" value="${b.title.replace(/"/g,'&quot;')}" aria-label="할 일"><button class="del" type="button" data-del="${b.id}">삭제</button></div>
+      <div class="days">${DAYS.map(d=>`<button type="button" data-day="${d[0]}" aria-pressed="${b.days.includes(d[0])}">${d[1]}</button>`).join('')}</div>
+      <div class="row"><input type="time" id="tm${b.id}" value="${b.time}" aria-label="시작 시간">
+        <select id="d${b.id}" aria-label="진행 시간">${[30,60,90,120,180].map(v=>`<option value="${v}" ${v===b.dur?'selected':''}>${v<60?v+'분':(v/60)+'시간'}</option>`).join('')}</select></div>
+      <div class="row" style="align-items:center"><span class="summary" style="flex:1">매주 ${dayTxt} ${b.time}</span>
+        <a class="btn" href="${href}" target="_blank" rel="noopener" aria-disabled="${!ok}">캘린더에 추가</a></div>`;
+    el.querySelector('input[type=text]').addEventListener('change',e=>{b.title=e.target.value;renderBlocks()});
+    el.querySelector('input[type=time]').addEventListener('change',e=>{b.time=e.target.value||'19:00';renderBlocks()});
+    el.querySelector('select').addEventListener('change',e=>{b.dur=+e.target.value;renderBlocks()});
+    el.querySelectorAll('[data-day]').forEach(btn=>btn.addEventListener('click',()=>{const d=btn.dataset.day;b.days=b.days.includes(d)?b.days.filter(x=>x!==d):[...b.days,d];renderBlocks()}));
+    el.querySelector('[data-del]').addEventListener('click',()=>{state.blocks=state.blocks.filter(x=>x.id!==b.id);renderBlocks()});
+    box.appendChild(el);
+  });
+}
+
+function renderRoutines(){
+  const now=new Date();
+  const lastDay=new Date(now.getFullYear(),now.getMonth()+1,0,20,0,0);
+  const semEnd=now.getMonth()<7?new Date(now.getFullYear(),5,30,20,0):new Date(now.getFullYear(),11,20,20,0);
+  const list=ROUTINES=[
+    {title:'주간 10분 리뷰',sub:'매주 일요일 21:00 · 지킨 블록 / 못 지킨 이유 / 바꿀 것 1개',start:nextDate(['SU'],'21:00'),dur:10,rrule:'FREQ=WEEKLY;BYDAY=SU'},
+    {title:'월간 점검',sub:'매월 마지막 날 20:00 · 이번 달 할 일 3개 점검',start:lastDay<now?new Date(now.getFullYear(),now.getMonth()+2,0,20):lastDay,dur:30,rrule:'FREQ=MONTHLY;BYMONTHDAY=-1'},
+    {title:'학기 말 설계도 수정',sub:`${semEnd.getMonth()+1}월 ${semEnd.getDate()}일 20:00 · 다음 학기 큰 돌 다시 놓기`,start:semEnd,dur:60}
+  ];
+  $('#routines').innerHTML=list.map(r=>`<div class="routine"><div><b>${r.title}</b><small>${r.sub}</small></div>
+    <a class="btn" href="${gcal({title:r.title,start:r.start,dur:r.dur,rrule:r.rrule,details:'MOA 시간 설계도 · 점검 루틴\n'+r.sub})}" target="_blank" rel="noopener">추가</a></div>`).join('');
+}
+
+$('#sys').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;state.sys=+b.dataset.v;setSeg($('#sys'),state.sys);renderGrades();calc()});
+$('#grade').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;state.grade=+b.dataset.v;setSeg($('#grade'),state.grade);calc()});
+$('#phone').addEventListener('input',e=>{state.phone=+e.target.value;calc()});
+$('#free').addEventListener('input',e=>{state.free=+e.target.value;calc()});
+$('#addBlock').addEventListener('click',()=>{state.blocks.push({id:nextId++,title:'',days:[],time:'19:00',dur:60});renderBlocks();const ins=document.querySelectorAll('#blocks input[type=text]');ins[ins.length-1]?.focus()});
+document.querySelectorAll('#sys button,#grade button').forEach(b=>b.type='button');
+function icsStamp(d){return stamp(d)}
+function esc(t){return String(t).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n')}
+function buildICS(){
+  const now=new Date();const utc=now.toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  const ev=[];let n=0;
+  const add=(title,start,dur,rrule,desc)=>{const end=new Date(start.getTime()+dur*60000);ev.push(['BEGIN:VEVENT','UID:moa-'+utc+'-'+(n++)+'@moa-timeplan','DTSTAMP:'+utc,'DTSTART;TZID=Asia/Seoul:'+icsStamp(start),'DTEND;TZID=Asia/Seoul:'+icsStamp(end),...(rrule?['RRULE:'+rrule]:[]),'SUMMARY:'+esc(title),'DESCRIPTION:'+esc(desc),'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+esc(title),'TRIGGER:-PT10M','END:VALARM','END:VEVENT'].join('\r\n'))};
+  state.blocks.filter(b=>b.title.trim()&&b.days.length).forEach(b=>add(b.title,nextDate(b.days,b.time),b.dur,'FREQ=WEEKLY;BYDAY='+b.days.join(','),'MOA 시간 설계도 · 타임블록'));
+  ROUTINES.forEach(r=>add(r.title,r.start,r.dur,r.rrule,'MOA 시간 설계도 · 점검 루틴 · '+r.sub));
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//JINROMOA//MOA TIMEPLAN//KO','CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VTIMEZONE','TZID:Asia/Seoul','BEGIN:STANDARD','DTSTART:19700101T000000','TZOFFSETFROM:+0900','TZOFFSETTO:+0900','TZNAME:KST','END:STANDARD','END:VTIMEZONE',...ev,'END:VCALENDAR'].join('\r\n');
+}
+$('#ics').addEventListener('click',()=>{
+  const b64=btoa(unescape(encodeURIComponent(buildICS()))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  location.href='/api/ics?d='+b64;
+});
+renderGrades();calc();renderBlocks();renderRoutines();
+</script>
+
+</body></html>
