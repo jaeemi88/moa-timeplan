@@ -32,10 +32,17 @@ header{display:flex;align-items:center;justify-content:space-between;gap:8px;pad
 h1{font-size:24px;font-weight:900;margin:18px 0 4px;text-wrap:balance}
 .lead{color:var(--muted);margin:0 0 16px;font-size:14px}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:20px}
-.step{text-align:center;padding:8px 2px;border-radius:12px;background:var(--surface);color:var(--muted);font-size:12px;border:1px solid transparent}
-.step b{display:block;font-size:18px;color:var(--fg)}
-.step.on{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
-.step.on b{color:var(--brand)}
+html{scroll-behavior:smooth}
+section{scroll-margin-top:12px}
+.step{display:block;text-align:center;padding:8px 2px;border-radius:12px;background:var(--brand-soft);color:var(--brand);font-size:12px;border:1px solid var(--brand);text-decoration:none;transition:transform .12s}
+.step:active{transform:scale(.96)}
+.longcard{background:var(--surface);border-radius:14px;padding:14px 16px;font-size:14px}
+.longcard b{color:var(--brand)}
+.longcard ol{margin:8px 0;padding-left:20px}
+.longcard li{margin:4px 0}
+.longcard p{margin:6px 0 0;color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+.step b{display:block;font-size:18px;color:var(--brand)}
 section{margin-top:26px}
 h2{font-size:17px;font-weight:700;margin:0 0 4px;display:flex;gap:8px;align-items:center}
 h2 .k{background:var(--brand);color:var(--brand-ink);border-radius:8px;width:26px;height:26px;display:inline-grid;place-items:center;font-size:14px}
@@ -84,18 +91,18 @@ input[type=text]{flex:1 1 160px}
 <div class="wrap">
   <header>
     <div class="logo">MOA FORMULA<span>진로모아</span></div>
-    <div class="tag">v1.0</div>
+    <div class="tag">v1.2</div>
   </header>
 
   <h1>나의 시간 설계도</h1>
   <p class="lead">졸업까지 남은 시간을 확인하고, 이번 주 일정과 점검 알림을 내 캘린더에 넣어요.</p>
 
-  <div class="steps" aria-label="진장단점 단계">
-    <div class="step on"><b>진</b>시간 진단</div>
-    <div class="step"><b>장</b>장기 설계</div>
-    <div class="step on"><b>단</b>단기 설계</div>
-    <div class="step on"><b>점</b>점검 루틴</div>
-  </div>
+  <nav class="steps" aria-label="진장단점 단계로 이동">
+    <a class="step" href="#diag"><b>진</b>시간 진단</a>
+    <a class="step" href="#long"><b>장</b>장기 설계</a>
+    <a class="step" href="#plan"><b>단</b>단기 설계</a>
+    <a class="step" href="#check"><b>점</b>점검 루틴</a>
+  </nav>
 
   <section id="diag">
     <h2><span class="k">진</span>졸업까지 남은 시간</h2>
@@ -123,9 +130,23 @@ input[type=text]{flex:1 1 160px}
     </div>
   </section>
 
+  <section id="long">
+    <h2><span class="k">장</span>졸업에서 학기까지</h2>
+    <p class="hint">장기 설계는 손으로 써야 생각이 정리돼요.</p>
+    <div class="longcard">
+      <b>활동지 앞면 ④ ⑤ ⑥에 써요</b>
+      <ol>
+        <li>졸업 목표 1개를 "○○에 지원할 수 있는 상태"처럼 쓰기</li>
+        <li>졸업에서 거꾸로, 학기마다 꼭 끝낼 일(큰 돌) 2~3개</li>
+        <li>학기별 학업 · 알바 · 여가 비중 정하기</li>
+      </ol>
+      <p>다 쓰면 폰으로 찍어 앨범에 저장하고, 이번 학기 큰 돌을 아래 타임블록으로 옮겨요.</p>
+    </div>
+  </section>
+
   <section id="plan">
     <h2><span class="k">단</span>이번 주 타임블록</h2>
-    <p class="hint">요일과 시간을 정하고 <b>캘린더에 추가</b>를 누르면 매주 반복 일정으로 들어가요.</p>
+    <p class="hint">요일과 시간을 정하고 <b>캘린더에 추가</b>를 누르면 <b>이번 학기 말까지</b> 매주 반복 일정으로 들어가요. 학기가 끝나면 '학기 말 설계도 수정' 알림에 맞춰 새로 넣어요.</p>
     <div id="blocks"></div>
     <button class="btn ghost" id="addBlock" type="button">+ 블록 추가</button>
   </section>
@@ -185,6 +206,9 @@ function nextDate(byday,time){
   byday.forEach(d=>{const t=new Date(now);t.setHours(h,m,0,0);let add=(idx[d]-now.getDay()+7)%7;if(add===0&&t<=now)add=7;t.setDate(now.getDate()+add);if(!best||t<best)best=t});
   return best;
 }
+function semEndDate(){const now=new Date();return now.getMonth()<7?new Date(now.getFullYear(),5,30,20,0):new Date(now.getFullYear(),11,20,20,0)}
+function untilUTC(){const e=semEndDate();const u=new Date(e.getFullYear(),e.getMonth(),e.getDate(),23,59,59);const p=n=>String(n).padStart(2,'0');return `${u.getUTCFullYear()}${p(u.getUTCMonth()+1)}${p(u.getUTCDate())}T${p(u.getUTCHours())}${p(u.getUTCMinutes())}${p(u.getUTCSeconds())}Z`}
+function blockRule(days){return 'FREQ=WEEKLY;BYDAY='+days.join(',')+';UNTIL='+untilUTC()}
 function gcal({title,start,dur,rrule,details}){
   const end=new Date(start.getTime()+dur*60000);
   const p=new URLSearchParams({action:'TEMPLATE',text:title,dates:`${stamp(start)}/${stamp(end)}`,ctz:'Asia/Seoul',details:details||'MOA 시간 설계도'});
@@ -197,14 +221,14 @@ function renderBlocks(){
   state.blocks.forEach(b=>{
     const el=document.createElement('div');el.className='block';
     const ok=b.title.trim()&&b.days.length;
-    const href=ok?gcal({title:b.title,start:nextDate(b.days,b.time),dur:b.dur,rrule:'FREQ=WEEKLY;BYDAY='+b.days.join(','),details:'MOA 시간 설계도 · 타임블록'}):'#';
+    const href=ok?gcal({title:b.title,start:nextDate(b.days,b.time),dur:b.dur,rrule:blockRule(b.days),details:'MOA 시간 설계도 · 타임블록 (학기 말까지 반복)'}):'#';
     const dayTxt=DAYS.filter(d=>b.days.includes(d[0])).map(d=>d[1]).join('·')||'요일 선택';
     el.innerHTML=`
       <div class="row"><input type="text" id="t${b.id}" value="${b.title.replace(/"/g,'&quot;')}" aria-label="할 일"><button class="del" type="button" data-del="${b.id}">삭제</button></div>
       <div class="days">${DAYS.map(d=>`<button type="button" data-day="${d[0]}" aria-pressed="${b.days.includes(d[0])}">${d[1]}</button>`).join('')}</div>
       <div class="row"><input type="time" id="tm${b.id}" value="${b.time}" aria-label="시작 시간">
         <select id="d${b.id}" aria-label="진행 시간">${[30,60,90,120,180].map(v=>`<option value="${v}" ${v===b.dur?'selected':''}>${v<60?v+'분':(v/60)+'시간'}</option>`).join('')}</select></div>
-      <div class="row" style="align-items:center"><span class="summary" style="flex:1">매주 ${dayTxt} ${b.time}</span>
+      <div class="row" style="align-items:center"><span class="summary" style="flex:1">매주 ${dayTxt} ${b.time} · ${semEndDate().getMonth()+1}월 ${semEndDate().getDate()}일까지</span>
         <a class="btn" href="${href}" target="_blank" rel="noopener" aria-disabled="${!ok}">캘린더에 추가</a></div>`;
     el.querySelector('input[type=text]').addEventListener('change',e=>{b.title=e.target.value;renderBlocks()});
     el.querySelector('input[type=time]').addEventListener('change',e=>{b.time=e.target.value||'19:00';renderBlocks()});
@@ -218,7 +242,7 @@ function renderBlocks(){
 function renderRoutines(){
   const now=new Date();
   const lastDay=new Date(now.getFullYear(),now.getMonth()+1,0,20,0,0);
-  const semEnd=now.getMonth()<7?new Date(now.getFullYear(),5,30,20,0):new Date(now.getFullYear(),11,20,20,0);
+  const semEnd=semEndDate();
   const list=ROUTINES=[
     {title:'주간 10분 리뷰',sub:'매주 일요일 21:00 · 지킨 블록 / 못 지킨 이유 / 바꿀 것 1개',start:nextDate(['SU'],'21:00'),dur:10,rrule:'FREQ=WEEKLY;BYDAY=SU'},
     {title:'월간 점검',sub:'매월 마지막 날 20:00 · 이번 달 할 일 3개 점검',start:lastDay<now?new Date(now.getFullYear(),now.getMonth()+2,0,20):lastDay,dur:30,rrule:'FREQ=MONTHLY;BYMONTHDAY=-1'},
@@ -240,7 +264,7 @@ function buildICS(){
   const now=new Date();const utc=now.toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
   const ev=[];let n=0;
   const add=(title,start,dur,rrule,desc)=>{const end=new Date(start.getTime()+dur*60000);ev.push(['BEGIN:VEVENT','UID:moa-'+utc+'-'+(n++)+'@moa-timeplan','DTSTAMP:'+utc,'DTSTART;TZID=Asia/Seoul:'+icsStamp(start),'DTEND;TZID=Asia/Seoul:'+icsStamp(end),...(rrule?['RRULE:'+rrule]:[]),'SUMMARY:'+esc(title),'DESCRIPTION:'+esc(desc),'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+esc(title),'TRIGGER:-PT10M','END:VALARM','END:VEVENT'].join('\r\n'))};
-  state.blocks.filter(b=>b.title.trim()&&b.days.length).forEach(b=>add(b.title,nextDate(b.days,b.time),b.dur,'FREQ=WEEKLY;BYDAY='+b.days.join(','),'MOA 시간 설계도 · 타임블록'));
+  state.blocks.filter(b=>b.title.trim()&&b.days.length).forEach(b=>add(b.title,nextDate(b.days,b.time),b.dur,blockRule(b.days),'MOA 시간 설계도 · 타임블록 (학기 말까지 반복)'));
   ROUTINES.forEach(r=>add(r.title,r.start,r.dur,r.rrule,'MOA 시간 설계도 · 점검 루틴 · '+r.sub));
   return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//JINROMOA//MOA TIMEPLAN//KO','CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VTIMEZONE','TZID:Asia/Seoul','BEGIN:STANDARD','DTSTART:19700101T000000','TZOFFSETFROM:+0900','TZOFFSETTO:+0900','TZNAME:KST','END:STANDARD','END:VTIMEZONE',...ev,'END:VCALENDAR'].join('\r\n');
 }
