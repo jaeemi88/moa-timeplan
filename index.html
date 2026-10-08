@@ -112,6 +112,25 @@ h2 .k{background:var(--pink);color:#fff;border-radius:6px;font-weight:900}
 .moa-foot .brand img{width:30px;height:30px}
 .moa-foot .save{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700}
 :focus-visible{outline:2px solid var(--pink)}
+
+/* ── 진·장·단·점 영역별 색 (2026-10-08) ── */
+#diag,.step:nth-child(1){--c:#FF3D6E;--c-ink:#D81E50;--c-soft:#FFE4EB}
+#long,.step:nth-child(2){--c:#2F6BFF;--c-ink:#1F56E0;--c-soft:#E3EDFF}
+#plan,.step:nth-child(3){--c:#0E9563;--c-ink:#0B7A51;--c-soft:#DDF5EA}
+#check,.step:nth-child(4){--c:#EA6A0C;--c-ink:#B9520A;--c-soft:#FFEBD9}
+#all{--c:#0F1E3D;--c-ink:#0F1E3D;--c-soft:#E8F1FE}
+.step b{color:var(--c)}
+.step{box-shadow:inset 0 -4px 0 var(--c)}
+section h2 .k{background:var(--c)}
+section .result,section .longcard,section .block,section .routine{box-shadow:inset 0 4px 0 var(--c)}
+section .big strong,section .longcard b{color:var(--c-ink)}
+section .callout{background:var(--c-soft)}
+section .callout b{color:var(--c-ink)}
+section .mini{background:var(--c-soft)}
+section .range input{accent-color:var(--c)}
+section .seg button[aria-pressed="true"],section .days button[aria-pressed="true"]{background:var(--c);border-color:var(--c)}
+section .btn{background:var(--c)}
+section .btn.ghost{background:var(--surface);color:var(--c-ink);border-color:var(--c)}
 </style>
 </head><body>
 
