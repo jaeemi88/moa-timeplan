@@ -9,19 +9,13 @@
 body{margin:0}
 /* Layout: single mobile column, step chips on top, big-number result card, then calendar block list */
 :root{
-  --brand:#0E7C74; --brand-ink:#FFFFFF; --brand-soft:#E3F3F1;
-  --bg:#FFFFFF; --surface:#F5F8F8; --line:#DCE6E5;
-  --fg:#16302E; --muted:#5E7472; --warn:#B4541A;
+  /* 2026-10-08 카드뉴스 톤: 하늘색 바탕 + 남색 글자 + 핫핑크 하이라이트 + 흰 카드 (한 가지 밝은 톤으로 고정) */
+  --bg:#D6E8FD; --surface:#FFFFFF; --line:#BCD6F5; --fg:#0F1E3D; --muted:#4A5B7A;
+  --brand:#0F1E3D; --brand-ink:#FFFFFF; --brand-soft:#E8F1FE;
+  --pink:#FF3D6E; --pink-soft:#FFE4EB; --warn:#C2410C;
   --font:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  color-scheme:light;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --brand:#3FC2B6; --brand-ink:#06201E; --brand-soft:#123432;
-  --bg:#0F1817; --surface:#162322; --line:#263937;
-  --fg:#E6F2F0; --muted:#93AAA7; --warn:#F0A060; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --brand:#3FC2B6; --brand-ink:#06201E; --brand-soft:#123432;
-  --bg:#0F1817; --surface:#162322; --line:#263937;
-  --fg:#E6F2F0; --muted:#93AAA7; --warn:#F0A060; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.55}
 .wrap{max-width:520px;margin:0 auto;padding-inline:16px;padding-block:14px 48px}
@@ -85,16 +79,68 @@ input[type=text]{flex:1 1 160px}
 .note{font-size:12px;color:var(--muted);margin-top:10px}
 .sample{font-size:11px;color:var(--warn);font-weight:500}
 :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* ── 카드뉴스 톤 덮어쓰기 (2026-10-08) ── */
+body{background:var(--bg)}
+.wrap{padding-block:18px 40px}
+header{border-bottom:2px solid var(--fg);padding-bottom:14px}
+.logo{color:var(--fg);font-size:13px;letter-spacing:.06em}
+.logo span{color:var(--fg);font-weight:700;letter-spacing:0}
+.tag{border:0;color:var(--muted);font-size:13px;font-weight:700;padding:0}
+h1{font-size:44px;font-weight:900;letter-spacing:-0.04em;line-height:1.05;margin:28px 0 14px}
+h1 .hl{display:inline-block;background:var(--pink);color:#fff;padding:.02em .14em .06em;border-radius:4px;margin-top:6px}
+.lead{color:var(--fg);font-size:15px;font-weight:500;margin-bottom:20px}
+.step{background:var(--surface);border:0;border-radius:12px;color:var(--fg);font-weight:500}
+.step b{color:var(--pink);font-weight:900}
+h2{font-size:19px;font-weight:900;letter-spacing:-0.02em}
+h2 .k{background:var(--pink);color:#fff;border-radius:6px;font-weight:900}
+.hint{color:var(--muted)}
+.result,.longcard,.block,.routine{background:var(--surface);border:0;border-radius:14px}
+.longcard b{color:var(--pink)}
+.big strong{color:var(--pink);font-size:56px;letter-spacing:-0.03em}
+.big span{color:var(--fg);font-weight:700}
+.mini{background:var(--brand-soft);border:0}
+.callout{background:var(--pink-soft);color:var(--fg)}
+.callout b{color:var(--pink)}
+.seg button,.days button,input[type=text],input[type=time],select{background:var(--surface);border-color:var(--line)}
+.seg button[aria-pressed="true"],.days button[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:#fff}
+.range input{accent-color:var(--pink)}
+.btn{background:var(--fg);color:#fff;border-radius:12px}
+.btn.ghost{background:var(--surface);color:var(--fg);border:1.5px solid var(--fg)}
+.moa-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:34px;padding-top:16px;border-top:2px solid var(--fg)}
+.moa-foot .brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
+.moa-foot .brand img{width:30px;height:30px}
+.moa-foot .save{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700}
+:focus-visible{outline:2px solid var(--pink)}
+
+/* ── 진·장·단·점 영역별 색 (2026-10-08) ── */
+#diag,.step:nth-child(1){--c:#FF3D6E;--c-ink:#D81E50;--c-soft:#FFE4EB}
+#long,.step:nth-child(2){--c:#2F6BFF;--c-ink:#1F56E0;--c-soft:#E3EDFF}
+#plan,.step:nth-child(3){--c:#0E9563;--c-ink:#0B7A51;--c-soft:#DDF5EA}
+#check,.step:nth-child(4){--c:#EA6A0C;--c-ink:#B9520A;--c-soft:#FFEBD9}
+#all{--c:#0F1E3D;--c-ink:#0F1E3D;--c-soft:#E8F1FE}
+.step b{color:var(--c)}
+.step{box-shadow:inset 0 -4px 0 var(--c)}
+section h2 .k{background:var(--c)}
+section .result,section .longcard,section .block,section .routine{box-shadow:inset 0 4px 0 var(--c)}
+section .big strong,section .longcard b{color:var(--c-ink)}
+section .callout{background:var(--c-soft)}
+section .callout b{color:var(--c-ink)}
+section .mini{background:var(--c-soft)}
+section .range input{accent-color:var(--c)}
+section .seg button[aria-pressed="true"],section .days button[aria-pressed="true"]{background:var(--c);border-color:var(--c)}
+section .btn{background:var(--c)}
+section .btn.ghost{background:var(--surface);color:var(--c-ink);border-color:var(--c)}
 </style>
 </head><body>
 
 <div class="wrap">
   <header>
-    <div class="logo">MOA FORMULA<span>진로모아</span></div>
-    <div class="tag">v1.2</div>
+    <div class="logo">MOA FORMULA<span> · 시간 설계도</span></div>
+    <div class="tag">진 · 장 · 단 · 점</div>
   </header>
 
-  <h1>나의 시간 설계도</h1>
+  <h1>나의<br><span class="hl">시간 설계도</span></h1>
   <p class="lead">졸업까지 남은 시간을 확인하고, 이번 주 일정과 점검 알림을 내 캘린더에 넣어요.</p>
 
   <nav class="steps" aria-label="진장단점 단계로 이동">
@@ -162,6 +208,10 @@ input[type=text]{flex:1 1 160px}
     <button class="btn" id="ics" type="button" style="width:100%">아이폰·삼성 캘린더에 모두 추가</button>
     <p class="note">구글 캘린더를 쓰면 각 일정의 '캘린더에 추가' 버튼을 눌러도 돼요.</p>
   </section>
+  <footer class="moa-foot">
+    <div class="brand"><img src="/logo.png" alt="" width="30" height="30">진로모아커리어센터</div>
+    <div class="save">캡처해두세요 <svg width="16" height="18" viewBox="0 0 16 18" fill="none" aria-hidden="true"><path d="M2 1.5h12v15l-6-4-6 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+  </footer>
 </div>
 
 <script>
