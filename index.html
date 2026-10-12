@@ -152,7 +152,7 @@ section .btn.ghost{background:var(--surface);color:var(--c-ink);border-color:var
 
   <section id="diag">
     <h2><span class="k">진</span>졸업까지 남은 시간</h2>
-    <p class="hint">예시 값이 들어 있어요. 내 상황으로 바꿔 보세요.</p>
+    <p class="hint">예시 값이 들어 있어요. <b>워크시트 ① 1번 · 2번</b>에 쓴 내 숫자로 바꿔 보세요.</p>
 
     <div class="field"><label>학제</label>
       <div class="seg" id="sys"><button data-v="2">2년제</button><button data-v="3">3년제</button><button data-v="4" aria-pressed="true">4년제</button></div></div>
@@ -160,7 +160,7 @@ section .btn.ghost{background:var(--surface);color:var(--c-ink);border-color:var
       <div class="seg" id="grade"></div></div>
     <div class="field"><label for="phone">하루 스마트폰 사용 시간 <span class="summary">(스크린타임 확인)</span></label>
       <div class="range"><input id="phone" type="range" min="0" max="10" step="0.5" value="4"><output id="phoneOut">4시간</output></div></div>
-    <div class="field"><label for="free">일주일 자유시간 <span class="summary">(수업·수면·알바 제외)</span></label>
+    <div class="field"><label for="free">일주일 자유시간 <span class="summary">(168 − 수면·수업·알바·이동)</span></label>
       <div class="range"><input id="free" type="range" min="0" max="80" step="1" value="35"><output id="freeOut">35시간</output></div></div>
 
     <div class="result" aria-live="polite">
@@ -180,7 +180,7 @@ section .btn.ghost{background:var(--surface);color:var(--c-ink);border-color:var
     <h2><span class="k">장</span>졸업에서 학기까지</h2>
     <p class="hint">장기 설계는 손으로 써야 생각이 정리돼요.</p>
     <div class="longcard">
-      <b>활동지 앞면 ④ ⑤ ⑥에 써요</b>
+      <b>워크시트 ① 3번 · 4번에 써요</b>
       <ol>
         <li>졸업 목표 1개를 "○○에 지원할 수 있는 상태"처럼 쓰기</li>
         <li>졸업에서 거꾸로, 학기마다 꼭 끝낼 일(큰 돌) 2~3개</li>
@@ -192,7 +192,7 @@ section .btn.ghost{background:var(--surface);color:var(--c-ink);border-color:var
 
   <section id="plan">
     <h2><span class="k">단</span>이번 주 타임블록</h2>
-    <p class="hint">요일과 시간을 정하고 <b>캘린더에 추가</b>를 누르면 <b>이번 학기 말까지</b> 매주 반복 일정으로 들어가요. 학기가 끝나면 '학기 말 설계도 수정' 알림에 맞춰 새로 넣어요.</p>
+    <p class="hint">요일과 시간을 정하고 <b>캘린더에 추가</b>를 누르면 <b>이번 학기 말까지</b> 매주 반복 일정으로 들어가요. 학기가 끝나면 '학기 말 설계도 수정' 알림에 맞춰 새로 넣어요.<br><b>워크시트 ② 1번</b>에서 ★ 친 할 일부터 블록으로 만들어요.</p>
     <div id="blocks"></div>
     <button class="btn ghost" id="addBlock" type="button">+ 블록 추가</button>
   </section>
