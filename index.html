@@ -153,6 +153,10 @@ select#dept{width:100%;font-weight:700}
 #card .pv img{width:100%;border-radius:12px;display:block}
 #card .pv p{font-size:12px;color:var(--muted);margin:8px 0 0;text-align:center}
 .mini-link{background:none;border:0;color:var(--muted);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer;margin-top:10px}
+.joinbar{display:flex;align-items:center;gap:10px;background:#0F1E3D;color:#fff;border-radius:12px;padding:10px 12px;margin:-4px 0 18px;font-size:13px}
+.joinbar[hidden]{display:none}
+.joinbar div{flex:1;min-width:0}.joinbar b{display:block;font-size:14px}.joinbar small{opacity:.8}
+.joinbar button{flex:none;background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:8px;padding:5px 9px;font:inherit;font-size:12px;cursor:pointer}
 #card{--c:#FF3D6E;--c-ink:#D81E50;--c-soft:#FFE4EB}
 </style>
 </head><body>
@@ -165,6 +169,8 @@ select#dept{width:100%;font-weight:700}
 
   <h1>나의<br><span class="hl">시간 설계도</span></h1>
   <p class="lead">졸업까지 남은 시간을 확인하고, 이번 주 일정과 점검 알림을 내 캘린더에 넣어요.</p>
+
+  <div class="joinbar" id="joinbar" hidden><div><b id="jTitle">우리 반</b><small>수업 참여 중 · 입력한 숫자만 이름 없이 우리 반 화면에 모여요</small></div><button type="button" id="jLeave">나가기</button></div>
 
   <nav class="steps" aria-label="진장단점 단계로 이동">
     <a class="step" href="#diag"><b>진</b>시간 진단</a>
@@ -278,10 +284,29 @@ const PRESETS={
 const DKEY=[['시각디자인','design'],['메디컬','mbeauty'],['뷰티','beauty'],['미용','beauty'],['보건의료행정','medadmin'],['의료행정','medadmin'],['사회복지','welfare'],['복지','welfare'],['반도체','semi'],['전자','semi'],['방송','media'],['영상','media'],['미디어','media'],['인테리어','interior'],['건축','arch'],['국방','army'],['군사','army'],['부사관','army'],['조리','cook'],['제과','cook'],['제빵','cook'],['호텔','tour'],['관광','tour'],['항공','air'],['회계','office'],['경영','office'],['금융','office'],['컴퓨터','it'],['IT','it'],['it','it'],['소프트웨어','it'],['물리치료','pt'],['간호','nurse'],['유아','child'],['보육','child'],['기계','eng'],['전기','eng'],['디자인','design'],['보건','medadmin']];
 state.dept='gen';state.goalTxt='';state.path='';state.stones={};
 const SKEY='moa-tp-uni-v1';
-function save(){try{localStorage.setItem(SKEY,JSON.stringify({sys:state.sys,grade:state.grade,phone:state.phone,free:state.free,blocks:state.blocks,nextId,dept:state.dept,goalTxt:state.goalTxt,path:state.path,stones:state.stones}))}catch(e){}}
+function save(){push();try{localStorage.setItem(SKEY,JSON.stringify({sys:state.sys,grade:state.grade,phone:state.phone,free:state.free,blocks:state.blocks,nextId,dept:state.dept,goalTxt:state.goalTxt,path:state.path,stones:state.stones}))}catch(e){}}
 function load(){try{const d=JSON.parse(localStorage.getItem(SKEY)||'null');if(!d)return;['sys','grade','phone','free','blocks','dept','goalTxt','path','stones'].forEach(k=>{if(d[k]!==undefined)state[k]=d[k]});if(d.nextId)nextId=d.nextId}catch(e){}}
 function urlDept(){try{const v=new URLSearchParams(location.search).get('d');if(!v)return null;if(PRESETS[v])return v;for(const [k,key] of DKEY)if(v.includes(k))return key;}catch(e){}return null}
 function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('on'),2200)}
+let CLS=null,SID='';const CKEY='moa-tp-class';
+try{SID=localStorage.getItem('moa-tp-sid')||'';if(!SID){SID=Math.random().toString(36).slice(2,12);localStorage.setItem('moa-tp-sid',SID)}}catch(e){SID=Math.random().toString(36).slice(2,12)}
+function saveCls(){try{CLS?localStorage.setItem(CKEY,JSON.stringify(CLS)):localStorage.removeItem(CKEY)}catch(e){}}
+function initClass(){
+  let c='';try{c=(new URLSearchParams(location.search).get('c')||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8)}catch(e){}
+  try{const old=JSON.parse(localStorage.getItem(CKEY)||'null');CLS=c?(old&&old.code===c?old:{code:c,cal:false,routine:false}):old}catch(e){CLS=c?{code:c,cal:false,routine:false}:null}
+  if(!CLS)return;saveCls();
+  fetch('/api/class?a=info&code='+CLS.code).then(r=>r.ok?r.json():null).then(i=>{if(!i){CLS=null;saveCls();renderRoutines();return}
+    $('#jTitle').textContent=i.title;$('#joinbar').hidden=false;pushNow()}).catch(()=>{});
+}
+function classData(){const gd=(typeof targetDate==='function'?targetDate():gradDate());const weeks=Math.max(0,Math.round((gd-new Date())/(7*864e5)));
+  return {phone:state.phone,free:state.free,weeks,goal:!!(state.goalTxt||'').trim(),stones:Object.values(state.stones||{}).flat().filter(t=>t&&String(t).trim()).length,
+    blocks:state.blocks.filter(b=>b.title.trim()&&b.days.length).length,cal:!!(CLS&&CLS.cal),routine:!!(CLS&&CLS.routine),path:state.path||''}}
+function pushNow(){if(!CLS)return;try{fetch('/api/class',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'up',code:CLS.code,sid:SID,d:classData()})}).catch(()=>{})}catch(e){}}
+function push(){if(!CLS)return;clearTimeout(push._t);push._t=setTimeout(pushNow,1500)}
+function checkUrl(){return location.origin+'/check/?c='+CLS.code+'&s='+SID}
+document.addEventListener('click',e=>{if(!CLS)return;const a=e.target.closest('a[href*="calendar.google.com"]');
+  if(a){if(a.closest('#blocks'))CLS.cal=true;if(a.closest('#routines'))CLS.routine=true;saveCls();pushNow()}
+  if(e.target.closest('#ics')){CLS.cal=true;CLS.routine=true;saveCls();pushNow()}},true);
 const $=s=>document.querySelector(s);
 const fmt=n=>Math.round(n).toLocaleString('ko-KR');
 
@@ -361,8 +386,9 @@ function renderRoutines(){
     {title:'월간 점검',sub:'매월 마지막 날 20:00 · 이번 달 할 일 3개 점검',start:lastDay<now?new Date(now.getFullYear(),now.getMonth()+2,0,20):lastDay,dur:30,rrule:'FREQ=MONTHLY;BYMONTHDAY=-1'},
     {title:'학기 말 설계도 수정',sub:`${semEnd.getMonth()+1}월 ${semEnd.getDate()}일 20:00 · 다음 학기 큰 돌 다시 놓기`,start:semEnd,dur:60}
   ];
+  if(CLS){const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+14,20,0);list.push({title:'2주 실천 체크',sub:`${d.getMonth()+1}월 ${d.getDate()}일 20:00 · 질문 3개, 1분 (일정 안 링크)`,start:d,dur:10,link:checkUrl()})}
   $('#routines').innerHTML=list.map(r=>`<div class="routine"><div><b>${r.title}</b><small>${r.sub}</small></div>
-    <a class="btn" href="${gcal({title:r.title,start:r.start,dur:r.dur,rrule:r.rrule,details:'MOA 시간 설계도 · 점검 루틴\n'+r.sub})}" target="_blank" rel="noopener">추가</a></div>`).join('');
+    <a class="btn" href="${gcal({title:r.title,start:r.start,dur:r.dur,rrule:r.rrule,details:'MOA 시간 설계도 · 점검 루틴\n'+r.sub+(r.link?'\n'+r.link:'')})}" target="_blank" rel="noopener">추가</a></div>`).join('');
 }
 
 $('#sys').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;state.sys=+b.dataset.v;setSeg($('#sys'),state.sys);renderGrades();calc();renderLong()});
@@ -378,7 +404,7 @@ function buildICS(){
   const ev=[];let n=0;
   const add=(title,start,dur,rrule,desc)=>{const end=new Date(start.getTime()+dur*60000);ev.push(['BEGIN:VEVENT','UID:moa-'+utc+'-'+(n++)+'@moa-timeplan','DTSTAMP:'+utc,'DTSTART;TZID=Asia/Seoul:'+icsStamp(start),'DTEND;TZID=Asia/Seoul:'+icsStamp(end),...(rrule?['RRULE:'+rrule]:[]),'SUMMARY:'+esc(title),'DESCRIPTION:'+esc(desc),'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+esc(title),'TRIGGER:-PT10M','END:VALARM','END:VEVENT'].join('\r\n'))};
   state.blocks.filter(b=>b.title.trim()&&b.days.length).forEach(b=>add(b.title,nextDate(b.days,b.time),b.dur,blockRule(b.days),'MOA 시간 설계도 · 타임블록 (학기 말까지 반복)'));
-  ROUTINES.forEach(r=>add(r.title,r.start,r.dur,r.rrule,'MOA 시간 설계도 · 점검 루틴 · '+r.sub));
+  ROUTINES.forEach(r=>add(r.title,r.start,r.dur,r.rrule,'MOA 시간 설계도 · 점검 루틴 · '+r.sub+(r.link?' · '+r.link:'')));
   return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//JINROMOA//MOA TIMEPLAN//KO','CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VTIMEZONE','TZID:Asia/Seoul','BEGIN:STANDARD','DTSTART:19700101T000000','TZOFFSETFROM:+0900','TZOFFSETTO:+0900','TZNAME:KST','END:STANDARD','END:VTIMEZONE',...ev,'END:VCALENDAR'].join('\r\n');
 }
 $('#ics').addEventListener('click',()=>{
@@ -455,6 +481,8 @@ $('#resetAll').addEventListener('click',()=>{try{localStorage.removeItem(SKEY)}c
 load();
 const ud=urlDept();if(ud)state.dept=ud;
 $('#phone').value=state.phone;$('#free').value=state.free;setSeg($('#sys'),state.sys);
+$('#jLeave').addEventListener('click',()=>{CLS=null;saveCls();$('#joinbar').hidden=true;renderRoutines();try{const u=new URL(location.href);u.searchParams.delete('c');history.replaceState(null,'',u)}catch(e){}});
+initClass();
 renderGrades();calc();renderBlocks();renderRoutines();renderLong();
 </script>
 
