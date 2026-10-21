@@ -50,6 +50,7 @@ function parse(s) { try { return JSON.parse(s); } catch (e) { return null; } }
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   const send = (code, obj) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json; charset=utf-8'); res.end(JSON.stringify(obj)); };
+  if ((req.query || {}).a === 'ping') { if (!REDIS_URL && (!URL_ || !TOKEN)) return send(200, { redis: false, why: 'env' }); try { await r('PING'); return send(200, { redis: true }); } catch (e) { return send(200, { redis: false, why: 'connect' }); } }
   if (!REDIS_URL && (!URL_ || !TOKEN)) return send(503, { error: '서버 저장소가 아직 연결되지 않았어요.' });
   const q = req.query || {}; let b = req.body || {};
   if (typeof b === 'string') b = parse(b) || {};
