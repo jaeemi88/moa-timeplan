@@ -1,8 +1,42 @@
 // 수업 모드 · 우리 반 시간 지도 · 2주 실천 체크 (이름 없이 숫자만 저장, 60일 뒤 자동 삭제)
+const REDIS_URL = process.env.REDIS_URL || process.env.KV_URL;
 const URL_ = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const TOKEN = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
 const TTL = 60 * 24 * 3600;
+// 외부 패키지 없이 Redis 서버에 바로 연결 (RESP 프로토콜, 요청마다 연결 1개)
+const net = require('net'), tls = require('tls');
+function enc(cmd) { let o = '*' + cmd.length + '\r\n'; for (const c of cmd) { const b = Buffer.from(String(c)); o += '$' + b.length + '\r\n' + b.toString('binary') + '\r\n'; } return Buffer.from(o, 'binary'); }
+function parseAt(buf, i) {
+  const nl = buf.indexOf('\r\n', i); if (nl < 0) return null;
+  const t = String.fromCharCode(buf[i]), line = buf.toString('utf8', i + 1, nl), next = nl + 2;
+  if (t === '+') return [line, next];
+  if (t === '-') return [new Error(line), next];
+  if (t === ':') return [Number(line), next];
+  if (t === '$') { const n = Number(line); if (n < 0) return [null, next]; if (buf.length < next + n + 2) return null; return [buf.toString('utf8', next, next + n), next + n + 2]; }
+  if (t === '*') { const n = Number(line); if (n < 0) return [null, next]; const arr = []; let j = next; for (let k = 0; k < n; k++) { const r = parseAt(buf, j); if (!r) return null; arr.push(r[0]); j = r[1]; } return [arr, j]; }
+  throw new Error('RESP');
+}
+function redisRun(cmds) {
+  return new Promise((resolve, reject) => {
+    const u = new URL(REDIS_URL); const port = Number(u.port || 6379);
+    const all = [];
+    if (u.password) all.push(u.username ? ['AUTH', decodeURIComponent(u.username), decodeURIComponent(u.password)] : ['AUTH', decodeURIComponent(u.password)]);
+    const skip = all.length; all.push(...cmds);
+    const opt = { host: u.hostname, port };
+    const sock = u.protocol === 'rediss:' ? tls.connect({ ...opt, servername: u.hostname }) : net.connect(opt);
+    let buf = Buffer.alloc(0); const out = [];
+    const done = (e, v) => { clearTimeout(tm); sock.destroy(); e ? reject(e) : resolve(v); };
+    const tm = setTimeout(() => done(new Error('timeout')), 6000);
+    sock.on('error', e => done(e));
+    sock.on(u.protocol === 'rediss:' ? 'secureConnect' : 'connect', () => sock.write(Buffer.concat(all.map(enc))));
+    sock.on('data', d => { buf = Buffer.concat([buf, d]); let i = 0; let r;
+      while (out.length < all.length && i < buf.length && (r = parseAt(buf, i))) { out.push(r[0]); i = r[1]; }
+      buf = buf.slice(i);
+      if (out.length === all.length) { const res = out.slice(skip); const err = out.find(x => x instanceof Error); err ? done(err) : done(null, res); } });
+  });
+}
 async function r(...cmd) {
+  if (REDIS_URL) return (await redisRun([cmd]))[0];
   const res = await fetch(URL_, { method: 'POST', headers: { Authorization: 'Bearer ' + TOKEN, 'Content-Type': 'application/json' }, body: JSON.stringify(cmd) });
   const j = await res.json(); if (j.error) throw new Error(j.error); return j.result;
 }
@@ -10,13 +44,13 @@ const rnd = (n, abc) => Array.from({ length: n }, () => abc[Math.floor(Math.rand
 const CODE_ABC = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const clean = (v, max) => String(v == null ? '' : v).slice(0, max);
 const num = (v, lo, hi) => { const n = Number(v); return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : 0; };
-function pairs(arr) { const o = {}; for (let i = 0; i + 1 < (arr || []).length; i += 2) o[arr[i]] = arr[i + 1]; return o; }
+function pairs(arr) { if (arr && !Array.isArray(arr)) return arr; const o = {}; for (let i = 0; i + 1 < (arr || []).length; i += 2) o[arr[i]] = arr[i + 1]; return o; }
 function parse(s) { try { return JSON.parse(s); } catch (e) { return null; } }
 
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   const send = (code, obj) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json; charset=utf-8'); res.end(JSON.stringify(obj)); };
-  if (!URL_ || !TOKEN) return send(503, { error: '서버 저장소가 아직 연결되지 않았어요.' });
+  if (!REDIS_URL && (!URL_ || !TOKEN)) return send(503, { error: '서버 저장소가 아직 연결되지 않았어요.' });
   const q = req.query || {}; let b = req.body || {};
   if (typeof b === 'string') b = parse(b) || {};
   const a = b.a || q.a; const code = clean(b.code || q.code, 8).toUpperCase().replace(/[^A-Z0-9]/g, '');
