@@ -6,6 +6,7 @@
 - 파일은 저장소 최상위에 바로 있음 (public 폴더 아님)
   - index.html: 화면 전체 (진→장→단→점 4단계 + 한 번에 모두 넣기)
   - api/ics.js: 캘린더 파일(.ics) 내려주기 (앱이 만든 내용을 주소로 받아 그대로 돌려줌, 저장 안 함)
+  - high/index.html: 고등학생용 (plan.jinromoa.co.kr/high) — 고1~3, 목표 시점 졸업/수능, 방학 전까지 반복 (2026-10-21)
 - 로그인 없음. 학생 공개 앱 (강사 잠금 staff-guard.js·공용 디자인 키트 moa-ui.css·moa-ui.js는 쓰지 않음)
 - 서버 저장소(Redis)·환경변수 없음
 
@@ -23,6 +24,12 @@
 - 이번 주 타임블록 → 구글 캘린더 반복 일정 넣기 (renderBlocks, gcal, blockRule)
 - 점검 루틴 알림 (renderRoutines)
 - 한 번에 모두 넣기: .ics 캘린더 파일 (buildICS, api/ics.js)
+
+## 2026-10-21 추가 기능 (대학생용 index.html 약 452줄 · 고등학생용 high/index.html 약 462줄)
+- 자동 저장: 입력값을 학생 폰 localStorage에 저장 (대학생 moa-tp-uni-v1 / 고등 moa-tp-high-v1), "입력 모두 지우기"
+- 장 입력: 졸업 목표 · 진로 선택 · 학기별 큰 돌 2개 (periods, renderLong), 이번 학기 큰 돌 [블록으로] → 단 화면에 블록 생성
+- 학과 프리셋: PRESETS · DKEY, 주소 ?d=학과명 또는 앱에서 선택 (대학생 11개 · 고등 11개 계열)
+- 설계도 이미지: makeCard (1080×1350 카드뉴스 톤), 앨범 저장 · 공유
 
 ## 작업 원칙
 - 수정 전 항상 현재 저장소의 최신 index.html을 기준으로 작업 (예전 버전 덮어쓰기 금지)
