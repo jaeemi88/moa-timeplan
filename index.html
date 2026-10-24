@@ -484,6 +484,11 @@ $('#phone').value=state.phone;$('#free').value=state.free;setSeg($('#sys'),state
 $('#jLeave').addEventListener('click',()=>{CLS=null;saveCls();$('#joinbar').hidden=true;renderRoutines();try{const u=new URL(location.href);u.searchParams.delete('c');history.replaceState(null,'',u)}catch(e){}});
 initClass();
 renderGrades();calc();renderBlocks();renderRoutines();renderLong();
+// 쓰임새 기록 (2026-10-24 · 2단계 정리): 화면이 열린 횟수만 운영보드로 보냄 (이름·기기 정보는 보내지 않음)
+function moaUse(s){try{var k=String(s),t=Date.now(),m=window.__moaUse||(window.__moaUse={});if(m[k]&&t-m[k]<600000)return;m[k]=t;var u='https://jinromoa-board.vercel.app/api/usage',b=JSON.stringify({a:'tp',s:k});if(navigator.sendBeacon)navigator.sendBeacon(u,b);else fetch(u,{method:'POST',body:b,keepalive:true,mode:'no-cors'})}catch(e){}}
+// 진·장·단·점 영역이 화면 가운데에 들어오면 한 번 기록 (같은 영역은 10분에 한 번)
+try{const USE={diag:'diag',long:'long',plan:'block',check:'check'};const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)moaUse(USE[en.target.id])}),{rootMargin:'-40% 0px -40% 0px'});Object.keys(USE).forEach(id=>{const el=document.getElementById(id);if(el)io.observe(el)})}catch(e){}
+$('#mkCard').addEventListener('click',()=>moaUse('card'));
 </script>
 
 </body></html>
