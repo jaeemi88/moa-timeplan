@@ -85,7 +85,7 @@ footer img{width:28px;height:28px}
     <div class="grid dash">
       <div class="grid" style="align-content:start">
         <div class="card qrbox">
-          <h2 style="margin:0">학생 입장 QR</h2>
+          <h2 style="margin:0" id="qrH">학생 입장 QR</h2>
           <div id="qr"></div>
           <div class="small">수업 코드</div><div class="code" id="dCode">----</div>
           <div class="small" id="sUrl"></div>
@@ -186,6 +186,9 @@ function start(){
   const saved=R.find(x=>x.code===code)||{};const c={code,key,level:saved.level||'uni',dept:saved.dept||''};
   $('#dash').classList.remove('hide');$('#dCode').textContent=code;
   fetch('/api/class?a=info&code='+code).then(r=>r.json()).then(i=>{if(i.level){c.level=i.level;c.dept=i.dept||c.dept}
+    // 허브 입장 코드로 묶인 반 (2026-10-28): 학생은 허브 QR로 들어오므로 이 화면의 QR은 띄우지 않음
+    if(i.hub){$('#qrH').textContent='학생 입장';$('#qr').innerHTML='<div class="small" style="max-width:260px;line-height:1.7">이 반은 <b>허브 입장 코드 '+String(i.hub).replace(/[^0-9]/g,'')+'</b>로 모여요.<br>학생은 허브 QR로 들어와 [나의 시간 설계도]를 누르면 이 화면에 자동으로 집계돼요.</div>';$('#sUrl').textContent='';
+      if(!saved.code)remember({code,key,title:i.title||code,level:c.level,dept:c.dept,t:Date.now()});return}
     const u=studentUrl(c);$('#sUrl').textContent=decodeURIComponent(u.replace(/^https?:\/\//,''));$('#qr').innerHTML='';
     try{new QRCode($('#qr'),{text:u,width:440,height:440,colorDark:'#0F1E3D',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})}catch(e){$('#qr').innerHTML='<div class="small" style="width:220px">QR을 불러오지 못했어요. 아래 주소를 화면에 띄워 주세요.</div>'}
     if(!saved.code)remember({code,key,title:i.title||code,level:c.level,dept:c.dept,t:Date.now()})}).catch(()=>{});

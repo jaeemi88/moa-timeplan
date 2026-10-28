@@ -41,6 +41,7 @@ async function r(...cmd) {
   const j = await res.json(); if (j.error) throw new Error(j.error); return j.result;
 }
 const rnd = (n, abc) => Array.from({ length: n }, () => abc[Math.floor(Math.random() * abc.length)]).join('');
+const HUB_API = 'https://resume-feedback-app-phi.vercel.app/api/class-code'; // 허브 입장 코드 (허브는 서버가 없어 자소서 앱 API를 씀)
 const CODE_ABC = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const clean = (v, max) => String(v == null ? '' : v).slice(0, max);
 const num = (v, lo, hi) => { const n = Number(v); return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : 0; };
@@ -51,6 +52,11 @@ module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   const send = (code, obj) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json; charset=utf-8'); res.end(JSON.stringify(obj)); };
   if ((req.query || {}).a === 'ping') { if (!REDIS_URL && (!URL_ || !TOKEN)) return send(200, { redis: false, why: 'env' }); try { await r('PING'); return send(200, { redis: true }); } catch (e) { return send(200, { redis: false, why: 'connect' }); } }
+  // 허브(moa-hub)에서 강사 화면이 '우리 반 시간 지도'를 열 때 부름 (2026-10-28)
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'x-staff-pin, x-staff-key, content-type');
+  if (req.method === 'OPTIONS') { res.statusCode = 204; return res.end(); }
   if (!REDIS_URL && (!URL_ || !TOKEN)) return send(503, { error: '서버 저장소가 아직 연결되지 않았어요.' });
   const q = req.query || {}; let b = req.body || {};
   if (typeof b === 'string') b = parse(b) || {};
@@ -63,9 +69,37 @@ module.exports = async (req, res) => {
       await r('SET', 'tp:c:' + c, JSON.stringify(meta), 'EX', TTL);
       return send(200, { code: c, key, title: meta.title, level: meta.level });
     }
+    // 허브 입장 코드로 묶는 반 (2026-10-28): 학생은 허브 QR 하나로 들어오고, 허브 강의 회차(ci)마다 반이 하나 생김
+    //   a=hub     { hc, level }            → 학생: 사용 중인 허브 입장 코드면 그 반 코드를 돌려줌 (반이 없으면 만듦)
+    //   a=hubdash { hc } + x-staff-pin/key → 강사: 그 입장 코드를 만든 강사(원장님은 전체)에게 반 코드와 강사용 키를 돌려줌
+    if (a === 'hub' || a === 'hubdash') {
+      const hc = clean(b.hc || q.hc, 4).replace(/[^0-9]/g, '');
+      if (hc.length !== 4) return send(400, { error: '입장 코드를 확인해 주세요.' });
+      if (a === 'hubdash') {
+        const h = { 'content-type': 'application/json' };
+        const pin = clean(req.headers['x-staff-pin'], 100), skey = clean(req.headers['x-staff-key'], 100);
+        if (pin) h['x-staff-pin'] = pin; if (skey) h['x-staff-key'] = skey;
+        if (!pin && !skey) return send(403, { error: '강사 확인이 필요해요.' });
+        const lr = await fetch(HUB_API + '?list=1', { headers: h });
+        const lj = lr.ok ? await lr.json().catch(() => null) : null;
+        const items = (lj && (lj.items || lj.codes)) || [];
+        if (!lr.ok || !items.some(x => x && x.code === hc)) return send(403, { error: '내가 만든 사용 중인 입장 코드만 열 수 있어요.' });
+      }
+      const vr = await fetch(HUB_API, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action: 'verify', code: hc }) });
+      const v = await vr.json().catch(() => null);
+      if (!v || !v.ok || !/^ci_[a-f0-9]{8,24}$/.test(v.ci || '')) return send(404, { error: '사용 중인 입장 코드가 아니에요.' });
+      const hcode = 'H' + v.ci.slice(3, 10).toUpperCase();
+      let hm = parse(await r('GET', 'tp:c:' + hcode));
+      if (!hm) {
+        hm = { key: rnd(16, 'abcdefghijkmnpqrstuvwxyz23456789'), title: clean(v.label, 40) || '우리 반', level: b.level === 'high' ? 'high' : 'uni', dept: '', created: Date.now(), hub: hc };
+        await r('SET', 'tp:c:' + hcode, JSON.stringify(hm), 'EX', TTL);
+      }
+      if (a === 'hub') return send(200, { code: hcode, title: hm.title });
+      return send(200, { code: hcode, key: hm.key, title: hm.title });
+    }
     const meta = parse(await r('GET', 'tp:c:' + code));
     if (!meta) return send(404, { error: '수업 코드를 찾지 못했어요.' });
-    if (a === 'info') return send(200, { title: meta.title, level: meta.level, dept: meta.dept });
+    if (a === 'info') return send(200, { title: meta.title, level: meta.level, dept: meta.dept, hub: meta.hub || '' });
     if (a === 'up') {
       const sid = clean(b.sid, 24).replace(/[^a-z0-9]/gi, ''); if (!sid) return send(400, { error: 'sid' });
       const d = b.d || {};
