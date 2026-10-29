@@ -78,6 +78,26 @@ input[type=text]{flex:1 1 160px}
 .routine b{display:block;font-size:14px}
 .routine small{color:var(--muted);font-size:12px}
 .note{font-size:12px;color:var(--muted);margin-top:10px}
+/* 일주일 자유시간 찾기 (2026-10-29) */
+.fc{background:var(--surface);border-radius:14px;padding:4px 14px;margin-top:2px}
+.fc summary{cursor:pointer;font-weight:700;font-size:14px;padding:10px 0;list-style:none;display:flex;align-items:center;gap:8px}
+.fc summary::-webkit-details-marker{display:none}
+.fc summary::after{content:"열기";margin-left:auto;font-size:12px;font-weight:500;color:var(--muted)}
+.fc[open] summary::after{content:"접기"}
+.fc .fcbody{display:grid;gap:10px;padding:2px 0 14px}
+#fcRows{display:grid;gap:8px}
+.fcrow{display:flex;align-items:center;gap:8px;font-size:14px}
+.fcrow .nm{flex:1;min-width:0;font-weight:700}
+.fcrow .nm small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.fcrow input{width:64px;font:inherit;font-size:15px;text-align:right;padding:7px 8px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg)}
+.fcrow .u{width:96px;font-size:12.5px;color:var(--muted)}
+.fcbar{display:flex;height:26px;border-radius:8px;overflow:hidden;background:var(--brand-soft)}
+.fcbar i{display:block;height:100%}
+.fclg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.fclg span{display:inline-flex;align-items:center;gap:5px}
+.fclg span::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--c)}
+.fcres{font-size:15px}
+.fcres b{color:var(--pink);font-size:22px;font-weight:900}
 .sample{font-size:11px;color:var(--warn);font-weight:500}
 :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 
@@ -190,8 +210,16 @@ select#dept{width:100%;font-weight:700}
       <div class="seg" id="grade"></div></div>
     <div class="field"><label for="phone">하루 스마트폰 사용 시간 <span class="summary">(스크린타임 확인)</span></label>
       <div class="range"><input id="phone" type="range" min="0" max="10" step="0.5" value="4"><output id="phoneOut">4시간</output></div></div>
-    <div class="field"><label for="free">일주일 자유시간 <span class="summary">(168 − 수면·수업·알바·이동)</span></label>
-      <div class="range"><input id="free" type="range" min="0" max="80" step="1" value="35"><output id="freeOut">35시간</output></div></div>
+    <div class="field"><label for="free">일주일 자유시간 <span class="summary">(168 − 수면·수업·알바·이동·식사)</span></label>
+      <div class="range"><input id="free" type="range" min="0" max="120" step="1" value="35"><output id="freeOut">35시간</output></div></div>
+    <details class="fc" id="fc"><summary>내 일주일 자유시간 찾기</summary><div class="fcbody">
+      <p class="hint" style="margin:0">일주일은 168시간이에요. 꼭 써야 하는 시간을 적으면 남는 시간이 내 자유시간이에요.</p>
+      <div id="fcRows"></div>
+      <div class="fcbar" id="fcBar" aria-hidden="true"></div>
+      <div class="fclg" id="fcLg"></div>
+      <div class="fcres" id="fcRes" aria-live="polite"></div>
+      <button type="button" class="btn" id="fcUse">이 시간으로 정하기</button>
+    </div></details>
 
     <div class="result" aria-live="polite">
       <div>
@@ -285,8 +313,8 @@ const PRESETS={
 const DKEY=[['시각디자인','design'],['메디컬','mbeauty'],['뷰티','beauty'],['미용','beauty'],['보건의료행정','medadmin'],['의료행정','medadmin'],['사회복지','welfare'],['복지','welfare'],['반도체','semi'],['전자','semi'],['방송','media'],['영상','media'],['미디어','media'],['인테리어','interior'],['건축','arch'],['국방','army'],['군사','army'],['부사관','army'],['조리','cook'],['제과','cook'],['제빵','cook'],['호텔','tour'],['관광','tour'],['항공','air'],['회계','office'],['경영','office'],['금융','office'],['컴퓨터','it'],['IT','it'],['it','it'],['소프트웨어','it'],['물리치료','pt'],['간호','nurse'],['유아','child'],['보육','child'],['기계','eng'],['전기','eng'],['디자인','design'],['보건','medadmin']];
 state.dept='gen';state.goalTxt='';state.path='';state.stones={};
 const SKEY='moa-tp-uni-v1';
-function save(){push();try{localStorage.setItem(SKEY,JSON.stringify({sys:state.sys,grade:state.grade,phone:state.phone,free:state.free,blocks:state.blocks,nextId,dept:state.dept,goalTxt:state.goalTxt,path:state.path,stones:state.stones}))}catch(e){}}
-function load(){try{const d=JSON.parse(localStorage.getItem(SKEY)||'null');if(!d)return;['sys','grade','phone','free','blocks','dept','goalTxt','path','stones'].forEach(k=>{if(d[k]!==undefined)state[k]=d[k]});if(d.nextId)nextId=d.nextId}catch(e){}}
+function save(){push();try{localStorage.setItem(SKEY,JSON.stringify({sys:state.sys,grade:state.grade,phone:state.phone,free:state.free,fc:state.fc,blocks:state.blocks,nextId,dept:state.dept,goalTxt:state.goalTxt,path:state.path,stones:state.stones}))}catch(e){}}
+function load(){try{const d=JSON.parse(localStorage.getItem(SKEY)||'null');if(!d)return;['sys','grade','phone','free','fc','blocks','dept','goalTxt','path','stones'].forEach(k=>{if(d[k]!==undefined)state[k]=d[k]});if(d.nextId)nextId=d.nextId}catch(e){}}
 function urlDept(){try{const v=new URLSearchParams(location.search).get('d');if(!v)return null;if(PRESETS[v])return v;for(const [k,key] of DKEY)if(v.includes(k))return key;}catch(e){}return null}
 function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('on'),2200)}
 let CLS=null,SID='';const CKEY='moa-tp-class';
@@ -400,6 +428,31 @@ $('#sys').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)
 $('#grade').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;state.grade=+b.dataset.v;setSeg($('#grade'),state.grade);calc();renderLong()});
 $('#phone').addEventListener('input',e=>{state.phone=+e.target.value;calc()});
 $('#free').addEventListener('input',e=>{state.free=+e.target.value;calc()});
+const FC_ITEMS=[
+  {k:'sleep',n:'수면',u:'시간 × 7일',s:'하루 평균',v:7,m:7,max:14},
+  {k:'class',n:'수업',u:'시간 (일주일)',s:'시간표 합계',v:18,m:1,max:60},
+  {k:'job',n:'알바',u:'시간 (일주일)',s:'없으면 0',v:0,m:1,max:60},
+  {k:'move',n:'이동',u:'시간 × 5일',s:'하루 통학 왕복',v:1.5,m:5,max:8},
+  {k:'meal',n:'식사 · 준비',u:'시간 × 7일',s:'씻기·식사 하루 평균',v:2,m:7,max:8}
+];
+// 일주일 자유시간 찾기 (2026-10-29): 168시간에서 꼭 써야 하는 시간을 빼 자유시간을 찾고, [이 시간으로 정하기]로 위 슬라이더에 넣음
+const FC_COL=['#0F1E3D','#2F6BFF','#0E9563','#EA6A0C','#8B5CF6'];
+function fcVals(){const v=state.fc||{};return FC_ITEMS.map(it=>{const x=v[it.k];return (x===undefined||x==='')?it.v:+x||0})}
+function fcHours(){return fcVals().map((x,i)=>x*FC_ITEMS[i].m)}
+function fcFree(){return Math.max(0,Math.round(168-fcHours().reduce((a,b)=>a+b,0)))}
+function fcRender(){
+  const vals=fcVals();
+  $('#fcRows').innerHTML=FC_ITEMS.map((it,i)=>'<label class="fcrow"><span class="nm">'+it.n+(it.s?'<small>'+it.s+'</small>':'')+'</span><input type="number" inputmode="decimal" min="0" max="'+it.max+'" step="0.5" data-fc="'+it.k+'" value="'+vals[i]+'" aria-label="'+it.n+' '+it.u+'"><span class="u">'+it.u+'</span></label>').join('');
+  fcDraw();
+}
+function fcDraw(){
+  const h=fcHours(),used=h.reduce((a,b)=>a+b,0),free=fcFree();
+  $('#fcBar').innerHTML=h.map((x,i)=>'<i style="width:'+Math.min(100,x/168*100)+'%;background:'+FC_COL[i]+'"></i>').join('')+'<i style="flex:1;background:var(--pink)"></i>';
+  $('#fcLg').innerHTML=FC_ITEMS.map((it,i)=>'<span style="--c:'+FC_COL[i]+'">'+it.n+' '+fmt(h[i])+'</span>').join('')+'<span style="--c:var(--pink)">자유시간 '+free+'</span>';
+  $('#fcRes').innerHTML=used>168?'적은 시간이 168시간을 넘어요. 숫자를 다시 확인해 주세요.':'168 − '+fmt(used)+' = 내 일주일 자유시간 <b>'+free+'</b>시간';
+}
+$('#fcRows').addEventListener('input',e=>{const k=e.target.dataset.fc;if(!k)return;state.fc=Object.assign({},state.fc,{[k]:e.target.value});fcDraw();save()});
+$('#fcUse').addEventListener('click',()=>{const f=Math.min(+$('#free').max,fcFree());state.free=f;$('#free').value=f;calc();toast('일주일 자유시간을 '+f+'시간으로 정했어요')});
 $('#addBlock').addEventListener('click',()=>{state.blocks.push({id:nextId++,title:'',days:[],time:'19:00',dur:60});renderBlocks();const ins=document.querySelectorAll('#blocks input[type=text]');ins[ins.length-1]?.focus()});
 document.querySelectorAll('#sys button,#grade button').forEach(b=>b.type='button');
 function icsStamp(d){return stamp(d)}
@@ -488,7 +541,7 @@ const ud=urlDept();if(ud)state.dept=ud;
 $('#phone').value=state.phone;$('#free').value=state.free;setSeg($('#sys'),state.sys);
 $('#jLeave').addEventListener('click',()=>{CLS=null;saveCls();$('#joinbar').hidden=true;renderRoutines();try{const u=new URL(location.href);u.searchParams.delete('c');u.searchParams.delete('hc');history.replaceState(null,'',u)}catch(e){}});
 initClass();
-renderGrades();calc();renderBlocks();renderRoutines();renderLong();
+renderGrades();calc();renderBlocks();renderRoutines();renderLong();fcRender();
 // 쓰임새 기록 (2026-10-24 · 2단계 정리): 화면이 열린 횟수만 운영보드로 보냄 (이름·기기 정보는 보내지 않음)
 function moaUse(s){try{var k=String(s),t=Date.now(),m=window.__moaUse||(window.__moaUse={});if(m[k]&&t-m[k]<600000)return;m[k]=t;var u='https://jinromoa-board.vercel.app/api/usage',b=JSON.stringify({a:'tp',s:k});if(navigator.sendBeacon)navigator.sendBeacon(u,b);else fetch(u,{method:'POST',body:b,keepalive:true,mode:'no-cors'})}catch(e){}}
 // 진·장·단·점 영역이 화면 가운데에 들어오면 한 번 기록 (같은 영역은 10분에 한 번)
