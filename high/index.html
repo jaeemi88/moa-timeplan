@@ -180,13 +180,17 @@ select#dept{width:100%;font-weight:700}
 .joinbar div{flex:1;min-width:0}.joinbar b{display:block;font-size:14px}.joinbar small{opacity:.8}
 .joinbar button{flex:none;background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:8px;padding:5px 9px;font:inherit;font-size:12px;cursor:pointer}
 #card{--c:#FF3D6E;--c-ink:#D81E50;--c-soft:#FFE4EB}
+/* 허브 버튼 (2026-10-29 · 다른 화면과 같은 모양, 허브 쪽색) */
+.hrt{display:flex;align-items:center;gap:10px;flex:none}
+.hub{flex:none;font-size:13px;font-weight:500;color:#1F3A6E;text-decoration:none;border:1px solid #1F3A6E;border-radius:999px;padding:6px 12px;white-space:nowrap;background:#FFFFFF}
+@media print{.hub{display:none!important}}
 </style>
 </head><body>
 
 <div class="wrap">
   <header>
     <div class="logo">MOA FORMULA<span> · 시간 설계도</span></div>
-    <div class="tag">고등학생용</div>
+    <div class="hrt"><div class="tag">고등학생용</div><a class="hub" href="https://moa-hub.vercel.app/">허브</a></div>
   </header>
 
   <h1>나의<br><span class="hl">시간 설계도</span></h1>
