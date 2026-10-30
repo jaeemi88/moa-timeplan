@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8">
 <script src="/class-gate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="고등학생용 — 졸업·수능까지 남은 시간을 확인하고 이번 주 공부·진로 일정과 점검 알림을 캘린더에 넣는 진로모아 시간 설계도">
 <title>MOA 시간 설계도 · 고등학생</title>
@@ -512,6 +513,7 @@ $('#stones').addEventListener('click',e=>{const b=e.target.closest('[data-tob]')
 function wrap(ctx,text,x,y,maxW,lh,maxLines){const words=String(text).split('');let line='',lines=[];for(const ch of words){if(ctx.measureText(line+ch).width>maxW){lines.push(line);line=ch}else line+=ch}if(line)lines.push(line);lines=lines.slice(0,maxLines||9);lines.forEach((l,i)=>ctx.fillText(l,x,y+i*lh));return lines.length*lh}
 function rr(ctx,x,y,w,h,r,fill){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();ctx.fillStyle=fill;ctx.fill()}
 let cardBlob=null;
+function centerQR(){try{const d=document.createElement('div');new QRCode(d,{text:'https://www.instagram.com/jinromoa',width:184,height:184,colorDark:'#0F1E3D',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});return d.querySelector('canvas')}catch(e){return null}}
 async function makeCard(){
   try{await Promise.all(['900 80px "Noto Sans KR"','700 40px "Noto Sans KR"','500 30px "Noto Sans KR"'].map(f=>document.fonts.load(f)))}catch(e){}
   const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');const FF='"Noto Sans KR",sans-serif';
@@ -531,7 +533,10 @@ async function makeCard(){
   card('이번 주 타임블록'+(blAll.length>3?' · 외 '+(blAll.length-3)+'개':''),'#0E9563',(yy,m)=>{const L=bl.length?bl.map(b=>`${b.title}  ·  ${DAYS.filter(d=>b.days.includes(d[0])).map(d=>d[1]).join('')} ${b.time}`):['(요일을 고른 블록이 없어요)'];if(m)return L.length*56;x.font='700 34px '+FF;L.forEach((t,i)=>{x.fillText('▢ '+t,108,yy+20+i*56)});return L.length*56});
   x.fillStyle='#0F1E3D';x.fillRect(72,H-130,W-144,4);
   try{const lg=new Image();lg.src='/logo.png';await lg.decode();x.drawImage(lg,72,H-104,54,54)}catch(e){}
-  x.font='700 30px '+FF;x.fillText('진로모아커리어센터',140,H-66);x.textAlign='right';x.font='500 26px '+FF;x.fillText('plan.jinromoa.co.kr/high',W-72,H-66);x.textAlign='left';
+  x.font='700 30px '+FF;x.fillText('진로모아커리어센터',140,H-72);x.font='500 22px '+FF;x.fillText('plan.jinromoa.co.kr/high',140,H-40);
+  // 센터 안내 (2026-10-30 대표님 승인): 오른쪽 아래 인스타그램 QR
+  const qs=104,qx=W-72-qs,qy=H-120;const qc=centerQR();if(qc){x.fillStyle='#fff';x.fillRect(qx-6,qy-6,qs+12,qs+12);x.drawImage(qc,qx,qy,qs,qs)}
+  x.fillStyle='#0F1E3D';x.textAlign='right';x.font='900 26px '+FF;x.fillText('@jinromoa',(qc?qx-20:W-72),H-74);x.font='500 22px '+FF;x.fillText('취업 준비 팁 · 인스타그램',(qc?qx-20:W-72),H-42);x.textAlign='left';
   return new Promise(r=>c.toBlob(b=>{cardBlob=b;r(URL.createObjectURL(b))},'image/png'));
 }
 $('#mkCard').addEventListener('click',async()=>{const b=$('#mkCard');b.textContent='만드는 중…';const url=await makeCard();$('#pvImg').src=url;$('#pv').style.display='block';b.textContent='다시 만들기';$('#pv').scrollIntoView({behavior:'smooth',block:'center'})});
