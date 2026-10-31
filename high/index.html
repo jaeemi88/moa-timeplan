@@ -71,6 +71,11 @@ input[type=text]{flex:1 1 160px}
 .days button[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand);font-weight:700}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 14px;border-radius:12px;background:var(--brand);color:var(--brand-ink);font-weight:700;font-size:14px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
 .btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+.cc-center{margin-top:14px;padding:12px 14px;border-radius:12px;background:var(--surface);display:flex;flex-direction:column;gap:6px;text-align:left}
+.cc-center[hidden]{display:none}
+.cc-center .cc-k{font-size:12px;font-weight:700;color:var(--c,#2F6BFF)}
+.cc-center .cc-t{margin:0;font-weight:700;font-size:14px}
+.cc-center .cc-bs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
 .summary{font-size:13px;color:var(--muted)}
 .del{background:none;border:0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;margin-left:auto}
@@ -276,7 +281,10 @@ select#dept{width:100%;font-weight:700}
     <p class="hint">남은 주 · 목표 · 이번 학기 큰 돌 · 이번 주 블록을 이미지 한 장으로 만들어요.</p>
     <button class="btn" id="mkCard" type="button" style="width:100%">내 설계도 이미지 만들기</button>
     <div class="pv" id="pv"><img id="pvImg" alt="내 시간 설계도 이미지"><p>이미지를 길게 눌러도 저장할 수 있어요.</p>
-      <button class="btn ghost" id="saveCard" type="button" style="width:100%;margin-top:8px">앨범에 저장 · 공유</button></div>
+      <button class="btn ghost" id="saveCard" type="button" style="width:100%;margin-top:8px">앨범에 저장 · 공유</button>
+      <!-- 센터 안내 (2026-10-31 대표님 승인 · 2차): 이미지를 만든 뒤에만 보임, 허브 입장 코드 '센터 안내 숨기기'면 숨김 -->
+      <div class="cc-center" id="ccCenter"><span class="cc-k">진로모아커리어센터</span><p class="cc-t">취업 준비 팁을 꾸준히 받아 보세요</p>
+        <div class="cc-bs"><a class="btn ghost" href="https://www.instagram.com/jinromoa" target="_blank" rel="noopener" data-cc="cc_ig">인스타그램</a><a class="btn ghost" href="https://pf.kakao.com/_kxaUaX" target="_blank" rel="noopener" data-cc="cc_kakao">카카오톡 채널</a></div></div></div>
     <p class="note">입력한 내용은 이 폰에만 저장돼요. 다시 열어도 그대로 있어요.</p>
     <button class="mini-link" id="resetAll" type="button">입력 모두 지우기</button>
   </section>
@@ -554,6 +562,8 @@ initClass();
 renderGrades();calc();renderBlocks();renderRoutines();renderLong();fcRender();
 // 쓰임새 기록 (2026-10-24 · 2단계 정리): 화면이 열린 횟수만 운영보드로 보냄 (이름·기기 정보는 보내지 않음)
 function moaUse(s){try{var k=String(s),t=Date.now(),m=window.__moaUse||(window.__moaUse={});if(m[k]&&t-m[k]<600000)return;m[k]=t;var u='https://jinromoa-board.vercel.app/api/usage',b=JSON.stringify({a:'tp',s:k});if(navigator.sendBeacon)navigator.sendBeacon(u,b);else fetch(u,{method:'POST',body:b,keepalive:true,mode:'no-cors'})}catch(e){}}
+// 센터 안내 숨기기 (2026-10-31): 허브가 ?nc=1 을 붙여 넘김 → 이 탭에서 기억 (반 코드로 주소가 바뀌어도 유지)
+(function(){var b=document.getElementById('ccCenter');if(!b)return;var nc=false;try{var q=location.search;if(/[?&]nc=1/.test(q))sessionStorage.setItem('moa-tp-nc','1');else if(/[?&]hc=/.test(q))sessionStorage.removeItem('moa-tp-nc');nc=sessionStorage.getItem('moa-tp-nc')==='1'}catch(e){nc=/[?&]nc=1/.test(location.search)}if(nc){b.hidden=true;return}b.querySelectorAll('a[data-cc]').forEach(function(a){a.addEventListener('click',function(){moaUse(a.getAttribute('data-cc'))})})})();
 moaUse('hs');
 </script>
 
