@@ -3,15 +3,15 @@
 <script src="/class-gate.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="졸업까지 남은 시간을 확인하고 이번 주 일정과 점검 알림을 캘린더에 넣는 진로모아 시간 설계도">
-<title>MOA 시간 설계도</title>
+<meta name="description" content="             ">
+<title>MOA  </title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
 <style>
 body{margin:0}
 /* Layout: single mobile column, step chips on top, big-number result card, then calendar block list */
 :root{
-  /* 2026-10-08 카드뉴스 톤: 하늘색 바탕 + 남색 글자 + 핫핑크 하이라이트 + 흰 카드 (한 가지 밝은 톤으로 고정) */
+  /* 2026-10-08  :   +   +   +   (    ) */
   --bg:#D6E8FD; --surface:#FFFFFF; --line:#BCD6F5; --fg:#0F1E3D; --muted:#4A5B7A;
   --brand:#0F1E3D; --brand-ink:#FFFFFF; --brand-soft:#E8F1FE;
   --pink:#FF3D6E; --pink-soft:#FFE4EB; --warn:#C2410C;
@@ -84,12 +84,12 @@ input[type=text]{flex:1 1 160px}
 .routine b{display:block;font-size:14px}
 .routine small{color:var(--muted);font-size:12px}
 .note{font-size:12px;color:var(--muted);margin-top:10px}
-/* 일주일 자유시간 찾기 (2026-10-29) */
+/*    (2026-10-29) */
 .fc{background:var(--surface);border-radius:14px;padding:4px 14px;margin-top:2px}
 .fc summary{cursor:pointer;font-weight:700;font-size:14px;padding:10px 0;list-style:none;display:flex;align-items:center;gap:8px}
 .fc summary::-webkit-details-marker{display:none}
-.fc summary::after{content:"열기";margin-left:auto;font-size:12px;font-weight:500;color:var(--muted)}
-.fc[open] summary::after{content:"접기"}
+.fc summary::after{content:"";margin-left:auto;font-size:12px;font-weight:500;color:var(--muted)}
+.fc[open] summary::after{content:""}
 .fc .fcbody{display:grid;gap:10px;padding:2px 0 14px}
 #fcRows{display:grid;gap:8px}
 .fcrow{display:flex;align-items:center;gap:8px;font-size:14px}
@@ -107,7 +107,7 @@ input[type=text]{flex:1 1 160px}
 .sample{font-size:11px;color:var(--warn);font-weight:500}
 :focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 
-/* ── 카드뉴스 톤 덮어쓰기 (2026-10-08) ── */
+/*     (2026-10-08)  */
 body{background:var(--bg)}
 .wrap{padding-block:18px 40px}
 header{border-bottom:2px solid var(--fg);padding-bottom:14px}
@@ -140,7 +140,7 @@ h2 .k{background:var(--pink);color:#fff;border-radius:6px;font-weight:900}
 .moa-foot .save{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700}
 :focus-visible{outline:2px solid var(--pink)}
 
-/* ── 진·장·단·점 영역별 색 (2026-10-08) ── */
+/*  ···   (2026-10-08)  */
 #diag,.step:nth-child(1){--c:#FF3D6E;--c-ink:#D81E50;--c-soft:#FFE4EB}
 #long,.step:nth-child(2){--c:#2F6BFF;--c-ink:#1F56E0;--c-soft:#E3EDFF}
 #plan,.step:nth-child(3){--c:#0E9563;--c-ink:#0B7A51;--c-soft:#DDF5EA}
@@ -158,7 +158,7 @@ section .range input{accent-color:var(--c)}
 section .seg button[aria-pressed="true"],section .days button[aria-pressed="true"]{background:var(--c);border-color:var(--c)}
 section .btn{background:var(--c)}
 section .btn.ghost{background:var(--surface);color:var(--c-ink);border-color:var(--c)}
-/* ── 2026-10-21 장 입력 · 학과 프리셋 · 설계도 카드 ── */
+/*  2026-10-21   ·   ·    */
 textarea{font:inherit;font-size:14px;padding:9px 10px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);width:100%;resize:vertical}
 select#dept{width:100%;font-weight:700}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
@@ -185,7 +185,7 @@ select#dept{width:100%;font-weight:700}
 .joinbar div{flex:1;min-width:0}.joinbar b{display:block;font-size:14px}.joinbar small{opacity:.8}
 .joinbar button{flex:none;background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:8px;padding:5px 9px;font:inherit;font-size:12px;cursor:pointer}
 #card{--c:#FF3D6E;--c-ink:#D81E50;--c-soft:#FFE4EB}
-/* 허브 버튼 (2026-10-29 · 다른 화면과 같은 모양, 허브 쪽색) */
+/*   (2026-10-29 ·    ,  ) */
 .hrt{display:flex;align-items:center;gap:10px;flex:none}
 .hub{flex:none;font-size:13px;font-weight:500;color:#1F3A6E;text-decoration:none;border:1px solid #1F3A6E;border-radius:999px;padding:6px 12px;white-space:nowrap;background:#FFFFFF}
 @media print{.hub{display:none!important}}
@@ -194,136 +194,136 @@ select#dept{width:100%;font-weight:700}
 
 <div class="wrap">
   <header>
-    <div class="logo">MOA FORMULA<span> · 시간 설계도</span></div>
-    <div class="hrt"><div class="tag">진 · 장 · 단 · 점</div><a class="hub" href="https://moa-hub.vercel.app/">허브</a></div>
+    <div class="logo">MOA FORMULA<span> ·  </span></div>
+    <div class="hrt"><div class="tag"> ·  ·  · </div><a class="hub" href="https://moa-hub.vercel.app/"></a></div>
   </header>
 
-  <h1>나의<br><span class="hl">시간 설계도</span></h1>
-  <p class="lead">졸업까지 남은 시간을 확인하고, 이번 주 일정과 점검 알림을 내 캘린더에 넣어요.</p>
+  <h1><br><span class="hl"> </span></h1>
+  <p class="lead">   ,        .</p>
 
-  <div class="joinbar" id="joinbar" hidden><div><b id="jTitle">우리 반</b><small>수업 참여 중 · 입력한 숫자만 이름 없이 우리 반 화면에 모여요</small></div><button type="button" id="jLeave">나가기</button></div>
+  <div class="joinbar" id="joinbar" hidden><div><b id="jTitle"> </b><small>   ·        </small></div><button type="button" id="jLeave"></button></div>
 
-  <nav class="steps" aria-label="진장단점 단계로 이동">
-    <a class="step" href="#diag"><b>진</b>시간 진단</a>
-    <a class="step" href="#long"><b>장</b>장기 설계</a>
-    <a class="step" href="#plan"><b>단</b>단기 설계</a>
-    <a class="step" href="#check"><b>점</b>점검 루틴</a>
+  <nav class="steps" aria-label="  ">
+    <a class="step" href="#diag"><b></b> </a>
+    <a class="step" href="#long"><b></b> </a>
+    <a class="step" href="#plan"><b></b> </a>
+    <a class="step" href="#check"><b></b> </a>
   </nav>
 
   <section id="diag">
-    <h2><span class="k">진</span>졸업까지 남은 시간</h2>
-    <p class="hint">예시 값이 들어 있어요. <b>워크시트 ① 1번 · 2번</b>에 쓴 내 숫자로 바꿔 보세요.</p>
+    <h2><span class="k"></span>  </h2>
+    <p class="hint">   . <b> ① 1 · 2</b>     .</p>
 
-    <div class="field"><label>학제</label>
-      <div class="seg" id="sys"><button data-v="2">2년제</button><button data-v="3">3년제</button><button data-v="4" aria-pressed="true">4년제</button></div></div>
-    <div class="field"><label>현재 학년</label>
+    <div class="field"><label></label>
+      <div class="seg" id="sys"><button data-v="2">2</button><button data-v="3">3</button><button data-v="4" aria-pressed="true">4</button></div></div>
+    <div class="field"><label> </label>
       <div class="seg" id="grade"></div></div>
-    <div class="field"><label for="phone">하루 스마트폰 사용 시간 <span class="summary">(스크린타임 확인)</span></label>
-      <div class="range"><input id="phone" type="range" min="0" max="10" step="0.5" value="4"><output id="phoneOut">4시간</output></div></div>
-    <div class="field"><label for="free">일주일 자유시간 <span class="summary">(168 − 수면·수업·알바·이동·식사)</span></label>
-      <div class="range"><input id="free" type="range" min="0" max="120" step="1" value="35"><output id="freeOut">35시간</output></div></div>
-    <details class="fc" id="fc"><summary>내 일주일 자유시간 찾기</summary><div class="fcbody">
-      <p class="hint" style="margin:0">일주일은 168시간이에요. 꼭 써야 하는 시간을 적으면 남는 시간이 내 자유시간이에요.</p>
+    <div class="field"><label for="phone">    <span class="summary">( )</span></label>
+      <div class="range"><input id="phone" type="range" min="0" max="10" step="0.5" value="4"><output id="phoneOut">4</output></div></div>
+    <div class="field"><label for="free">  <span class="summary">(168 − ····)</span></label>
+      <div class="range"><input id="free" type="range" min="0" max="120" step="1" value="35"><output id="freeOut">35</output></div></div>
+    <details class="fc" id="fc"><summary>   </summary><div class="fcbody">
+      <p class="hint" style="margin:0"> 168.         .</p>
       <div id="fcRows"></div>
       <div class="fcbar" id="fcBar" aria-hidden="true"></div>
       <div class="fclg" id="fcLg"></div>
       <div class="fcres" id="fcRes" aria-live="polite"></div>
-      <button type="button" class="btn" id="fcUse">이 시간으로 정하기</button>
+      <button type="button" class="btn" id="fcUse">  </button>
     </div></details>
 
     <div class="result" aria-live="polite">
       <div>
         <div class="summary" id="gradDate"></div>
-        <div class="big"><strong id="weeks">0</strong><span>주 남았어요</span></div>
+        <div class="big"><strong id="weeks">0</strong><span> </span></div>
       </div>
       <div class="grid2">
-        <div class="mini"><small>졸업까지 내 자유시간</small><b id="freeTotal">0</b><small>시간</small></div>
-        <div class="mini"><small>졸업까지 폰 사용 시간</small><b id="phoneTotal">0</b><small>시간</small></div>
+        <div class="mini"><small>  </small><b id="freeTotal">0</b><small></small></div>
+        <div class="mini"><small>   </small><b id="phoneTotal">0</b><small></small></div>
       </div>
       <div class="callout" id="gain"></div>
     </div>
   </section>
 
   <section id="long">
-    <h2><span class="k">장</span>졸업에서 이번 학기까지</h2>
-    <p class="hint">목표와 학기별 큰 돌을 적어요. <b>이번 학기</b> 큰 돌은 버튼 한 번으로 이번 주 블록이 돼요. <b>워크시트 ① 3번 · 4번</b>과 같은 내용이에요.</p>
-    <div class="field"><label for="dept">우리 학과 · 계열</label><select id="dept" aria-label="학과 계열"></select></div>
+    <h2><span class="k"></span>  </h2>
+    <p class="hint">    . <b> </b>         . <b> ① 3 · 4</b>  .</p>
+    <div class="field"><label for="dept">  · </label><select id="dept" aria-label=" "></select></div>
     <div class="result" style="gap:10px">
-      <div class="field" style="margin:0"><label for="goalTxt">졸업 목표 1개 <span class="summary">"할 수 있는 상태"로 쓰기</span></label>
+      <div class="field" style="margin:0"><label for="goalTxt">  1 <span class="summary">"   " </span></label>
         <textarea id="goalTxt" rows="2"></textarea></div>
-      <div class="seg" id="path"><button type="button" data-v="취업">취업</button><button type="button" data-v="공무원 · 공기업">공무원·공기업</button><button type="button" data-v="진학 · 편입">진학·편입</button><button type="button" data-v="고민 중">고민 중</button></div>
+      <div class="seg" id="path"><button type="button" data-v=""></button><button type="button" data-v=" · ">·</button><button type="button" data-v=" · ">·</button><button type="button" data-v=" "> </button></div>
     </div>
     <div class="chips" id="chips"></div>
     <div id="stones"></div>
   </section>
 
   <section id="plan">
-    <h2><span class="k">단</span>이번 주 타임블록</h2>
-    <p class="hint">요일과 시간을 정하고 <b>캘린더에 추가</b>를 누르면 <b>이번 학기 말까지</b> 매주 반복 일정으로 들어가요. 학기가 끝나면 '학기 말 설계도 수정' 알림에 맞춰 새로 넣어요.<br><b>워크시트 ② 1번</b>에서 ★ 친 할 일부터 블록으로 만들어요.</p>
+    <h2><span class="k"></span>  </h2>
+    <p class="hint">   <b> </b>  <b>  </b>    .   '   '    .<br><b> ② 1</b>      .</p>
     <div id="blocks"></div>
-    <button class="btn ghost" id="addBlock" type="button">+ 블록 추가</button>
+    <button class="btn ghost" id="addBlock" type="button">+  </button>
   </section>
 
   <section id="check">
-    <h2><span class="k">점</span>점검 루틴</h2>
-    <p class="hint">계획은 고치면서 가는 거예요. 반복 알림으로 넣어 두세요.</p>
+    <h2><span class="k"></span> </h2>
+    <p class="hint">   .    .</p>
     <div id="routines"></div>
     </section>
   <section id="all">
-    <h2><span class="k">↓</span>한 번에 모두 넣기</h2>
-    <p class="hint">아이폰·삼성 캘린더를 쓰면 이 버튼을 누르세요. 위의 타임블록과 점검 루틴이 모두 들어간 캘린더 파일이 열려요.</p>
-    <button class="btn" id="ics" type="button" style="width:100%">아이폰·삼성 캘린더에 모두 추가</button>
-    <p class="note">구글 캘린더를 쓰면 각 일정의 '캘린더에 추가' 버튼을 눌러도 돼요.</p>
+    <h2><span class="k">↓</span>   </h2>
+    <p class="hint">·     .         .</p>
+    <button class="btn" id="ics" type="button" style="width:100%">·   </button>
+    <p class="note">     ' '   .</p>
   </section>
   <section id="card">
-    <h2><span class="k">★</span>내 설계도 저장</h2>
-    <p class="hint">남은 주 · 목표 · 이번 학기 큰 돌 · 이번 주 블록을 이미지 한 장으로 만들어요.</p>
-    <button class="btn" id="mkCard" type="button" style="width:100%">내 설계도 이미지 만들기</button>
-    <div class="pv" id="pv"><img id="pvImg" alt="내 시간 설계도 이미지"><p>이미지를 길게 눌러도 저장할 수 있어요.</p>
-      <button class="btn ghost" id="saveCard" type="button" style="width:100%;margin-top:8px">앨범에 저장 · 공유</button>
-      <!-- 센터 안내 (2026-10-31 대표님 승인 · 2차): 이미지를 만든 뒤에만 보임, 허브 입장 코드 '센터 안내 숨기기'면 숨김 -->
-      <div class="cc-center" id="ccCenter"><span class="cc-k">진로모아커리어센터</span><p class="cc-t">취업 준비 팁을 꾸준히 받아 보세요</p>
-        <div class="cc-bs"><a class="btn ghost" href="https://www.instagram.com/jinromoa" target="_blank" rel="noopener" data-cc="cc_ig">인스타그램</a><a class="btn ghost" href="https://pf.kakao.com/_kxaUaX" target="_blank" rel="noopener" data-cc="cc_kakao">카카오톡 채널</a></div></div></div>
-    <p class="note">입력한 내용은 이 폰에만 저장돼요. 다시 열어도 그대로 있어요.</p>
-    <button class="mini-link" id="resetAll" type="button">입력 모두 지우기</button>
+    <h2><span class="k"></span>  </h2>
+    <p class="hint">  ·  ·     ·       .</p>
+    <button class="btn" id="mkCard" type="button" style="width:100%">   </button>
+    <div class="pv" id="pv"><img id="pvImg" alt="   "><p>     .</p>
+      <button class="btn ghost" id="saveCard" type="button" style="width:100%;margin-top:8px">  · </button>
+      <!--   (2026-10-31   · 2):    ,    '  '  -->
+      <div class="cc-center" id="ccCenter"><span class="cc-k"></span><p class="cc-t">     </p>
+        <div class="cc-bs"><a class="btn ghost" href="https://www.instagram.com/jinromoa" target="_blank" rel="noopener" data-cc="cc_ig"></a><a class="btn ghost" href="https://pf.kakao.com/_kxaUaX" target="_blank" rel="noopener" data-cc="cc_kakao"> </a></div></div></div>
+    <p class="note">    .    .</p>
+    <button class="mini-link" id="resetAll" type="button">  </button>
   </section>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <footer class="moa-foot">
-    <div class="brand"><img src="/logo.png" alt="" width="30" height="30">진로모아커리어센터</div>
-    <div class="save">캡처해두세요 <svg width="16" height="18" viewBox="0 0 16 18" fill="none" aria-hidden="true"><path d="M2 1.5h12v15l-6-4-6 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+    <div class="brand"><img src="/logo.png" alt="" width="30" height="30"></div>
+    <div class="save"> <svg width="16" height="18" viewBox="0 0 16 18" fill="none" aria-hidden="true"><path d="M2 1.5h12v15l-6-4-6 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
   </footer>
 </div>
 
 <script>
-const DAYS=[['MO','월'],['TU','화'],['WE','수'],['TH','목'],['FR','금'],['SA','토'],['SU','일']];
+const DAYS=[['MO',''],['TU',''],['WE',''],['TH',''],['FR',''],['SA',''],['SU','']];
 const state={sys:4,grade:2,phone:4,free:35,blocks:[
-  {id:1,title:'토익 공부',days:['TU','TH'],time:'19:00',dur:60},
-  {id:2,title:'자격증 문제 풀이',days:['SA'],time:'10:00',dur:120}
+  {id:1,title:' ',days:['TU','TH'],time:'19:00',dur:60},
+  {id:2,title:'  ',days:['SA'],time:'10:00',dur:120}
 ]};
 let nextId=3;let ROUTINES=[];
 const PRESETS={
- gen:{n:'기본 (학과 선택 안 함)',goal:'예) ○○ 직무 공채에 지원할 수 있는 상태',st:['전공 자격증 1개','토익 · 어학 점수','현장실습 · 인턴','직무 경험 정리','이력서 · 자소서','면접 연습']},
- it:{n:'컴퓨터정보 · IT',goal:'예) 정보처리산업기사와 프로젝트 2개를 갖추고 IT 기업 개발 · 보안 직무에 지원할 수 있는 상태',st:['정보처리산업기사 필기','정보처리산업기사 실기','리눅스마스터 2급','정보보안 자격 (보안 전공)','팀 프로젝트 · GitHub','코딩테스트 연습']},
- tour:{n:'호텔 · 항공 · 관광',goal:'예) 토익스피킹과 서비스 경험을 갖추고 호텔 · 항공사 · 여행사에 지원할 수 있는 상태',st:['토익 · 토익스피킹','호텔서비스사','국내여행안내사','현장실습 (호텔 · 항공 · 여행사)','서비스 알바 경험','면접 · 이미지메이킹']},
- beauty:{n:'뷰티융합',goal:'예) 미용사 자격 2개와 작품 포트폴리오를 갖추고 살롱 · 뷰티 브랜드에 지원할 수 있는 상태',st:['미용사(일반) · (피부)','미용사(네일) · (메이크업)','작품 사진 포트폴리오','살롱 · 브랜드 현장실습','SNS 작품 계정','뷰티 대회 출전']},
- mbeauty:{n:'메디컬K뷰티',goal:'예) 미용사(피부)와 상담 실무를 갖추고 피부과 · 메디컬 에스테틱에 지원할 수 있는 상태',st:['미용사(피부)','병원 코디네이터 · 상담 실무','화장품 · 피부 과학 공부','클리닉 현장실습','외국어 상담 (영어 · 중국어)','관리 기록 포트폴리오']},
- semi:{n:'반도체 · 전자',goal:'예) 전자산업기사를 따고 반도체 기업(협약반) 장비 · 공정 직무에 지원할 수 있는 상태',st:['전자산업기사 필기','전자산업기사 실기','반도체설계산업기사','클린룸 · 장비 실습','협약반 과정 이수','인적성 · 면접 준비']},
- welfare:{n:'사회복지',goal:'예) 사회복지사 2급을 따고 복지관 · 공공기관 채용에 지원할 수 있는 상태',st:['사회복지현장실습 160시간','사회복지사 2급 과목 이수','자원봉사 시간','컴퓨터활용능력','사회복지직 공무원 준비','기관 채용 공고 확인']},
- media:{n:'방송영상미디어',goal:'예) 영상 포트폴리오 3편을 갖추고 방송 · 영상 제작사에 지원할 수 있는 상태',st:['영상 포트폴리오 3편','프리미어 · 애프터이펙트','유튜브 채널 운영','현장실습 (방송 · 제작사)','공모전 출품','촬영 · 편집 외주 경험']},
- cook:{n:'조리 · 제과제빵',goal:'예) 조리산업기사와 현장실습 경험을 갖추고 호텔 · 레스토랑 조리부에 지원할 수 있는 상태',st:['조리산업기사','제과 · 제빵기능사','바리스타 자격','호텔 · 레스토랑 현장실습','요리 · 작품 포트폴리오','요리대회 출전']},
- medadmin:{n:'보건의료행정',goal:'예) 보건의료정보관리사 국가시험에 합격하고 병원 원무 · 보험심사 직무에 지원할 수 있는 상태',st:['보건의료정보관리사 국가시험','보험심사평가사','병원행정사','병원 현장실습','컴퓨터활용능력','병원 코디네이터']},
- design:{n:'시각디자인',goal:'예) 포트폴리오 10개를 갖추고 디자인 에이전시 · 브랜드에 지원할 수 있는 상태',st:['포트폴리오 작품 3개','공모전 출품','GTQ · 컬러리스트','현장실습 · 인턴','비핸스 · SNS 정리','외주 경험']},
- army:{n:'국방군사',goal:'예) 부사관 필기 · 체력 · 면접 준비를 마치고 부사관 임관에 지원할 수 있는 상태',st:['부사관 필기 (KIDA 간부선발도구)','체력 검정 준비','한국사능력검정','전공 자격 (드론 · 의무 등)','면접 · 인성검사','임관 · 장학생 일정 확인']},
- interior:{n:'인테리어디자인',goal:'예) 실내건축산업기사와 포트폴리오를 갖추고 인테리어 · 전시 디자인 회사에 지원할 수 있는 상태',st:['실내건축산업기사','전산응용건축제도기능사','스케치업 · 캐드 포트폴리오','현장실습 (설계 · 시공)','공모전 · 전시 출품','시공 현장 경험']},
- office:{n:'경영 · 회계 · 금융',goal:'예) 전산회계 1급과 컴활을 따고 금융권 · 기업 회계 직무에 지원할 수 있는 상태',st:['전산회계 1급','FAT · TAT','컴퓨터활용능력','금융 자격 (투자자산운용 등)','창업 지원사업 도전','NCS 직업기초능력']},
- arch:{n:'건축',goal:'예) 건축산업기사와 캐드 포트폴리오를 갖추고 설계사무소 · 시공사에 지원할 수 있는 상태',st:['건축산업기사 필기','건축산업기사 실기','전산응용건축제도기능사','캐드 · 레빗 포트폴리오','현장실습 (설계 · 시공)','건설 기업 공고 확인']},
- air:{n:'항공서비스',goal:'예) 토익 · 수영 · 이미지 준비를 마치고 항공사 객실승무원 공채에 지원할 수 있는 상태',st:['토익 · 토익스피킹','수영 25m','이미지메이킹 · 워킹','서비스 경험 (알바)','영어 인터뷰 연습','항공사 공채 일정 확인']},
- pt:{n:'물리치료',goal:'예) 물리치료사 국가시험에 합격하고 병원 채용에 지원할 수 있는 상태',st:['임상실습','국가시험 과목 1회독','국가시험 기출 풀이','보수교육 · 세미나','병원 정보 찾기','면접 연습']},
- nurse:{n:'간호',goal:'예) 간호사 국가시험에 합격하고 대학병원 공채에 지원할 수 있는 상태',st:['임상실습','국가시험 기출 풀이','BLS · ACLS 자격','병원 인적성 준비','토익','면접 연습']},
- eng:{n:'기계 · 전기',goal:'예) 산업기사 자격을 따고 제조 · 에너지 기업 기술직에 지원할 수 있는 상태',st:['전기 · 기계 산업기사 필기','산업기사 실기','현장실습','설계 · CAD 프로젝트','NCS 직업기초능력','공기업 채용 공고 확인']},
- child:{n:'유아교육 · 보육',goal:'예) 보육교사 2급을 따고 어린이집 · 유치원에 지원할 수 있는 상태',st:['보육실습 240시간','보육교사 2급 과목 이수','교구 · 수업 포트폴리오','아동 안전 교육 이수','봉사 활동','기관 채용 정보 찾기']}
+ gen:{n:' (   )',goal:')       ',st:['  1',' ·  ',' · ','  ',' · ',' ']},
+ it:{n:' · IT',goal:')   2  IT   ·      ',st:[' ',' ',' 2','  ( )','  · GitHub',' ']},
+ tour:{n:' ·  · ',goal:')      ·  ·     ',st:[' · ','','',' ( ·  · )','  ',' · ']},
+ beauty:{n:'',goal:')   2     ·      ',st:['() · ()','() · ()','  ',' ·  ','SNS  ','  ']},
+ mbeauty:{n:'K',goal:') ()     ·      ',st:['()','  ·  ',' ·   ',' ','  ( · )','  ']},
+ semi:{n:' · ',goal:')    ()  ·      ',st:[' ',' ','',' ·  ','  ',' ·  ']},
+ welfare:{n:'',goal:')  2   ·      ',st:[' 160',' 2  ',' ','','  ','   ']},
+ media:{n:'',goal:')   3   ·      ',st:['  3',' · ','  ',' ( · )',' ',' ·   ']},
+ cook:{n:' · ',goal:')      ·      ',st:['',' · ',' ',' ·  ',' ·  ',' ']},
+ medadmin:{n:'',goal:')      ·      ',st:[' ','','',' ','',' ']},
+ design:{n:'',goal:')  10    ·     ',st:['  3',' ','GTQ · ',' · ',' · SNS ',' ']},
+ army:{n:'',goal:')   ·  ·         ',st:['  (KIDA )','  ','','  ( ·  )',' · ',' ·   ']},
+ interior:{n:'',goal:')     ·       ',st:['','',' ·  ',' ( · )',' ·  ','  ']},
+ office:{n:' ·  · ',goal:')  1    ·       ',st:[' 1','FAT · TAT','','  ( )','  ','NCS ']},
+ arch:{n:'',goal:')      ·     ',st:[' ',' ','',' ·  ',' ( · )','   ']},
+ air:{n:'',goal:')  ·  ·          ',st:[' · ',' 25m',' · ','  ()','  ','   ']},
+ pt:{n:'',goal:')         ',st:['','  1','  ',' · ','  ',' ']},
+ nurse:{n:'',goal:')         ',st:['','  ','BLS · ACLS ','  ','',' ']},
+ eng:{n:' · ',goal:')     ·       ',st:[' ·   ',' ','',' · CAD ','NCS ','   ']},
+ child:{n:' · ',goal:')  2   ·     ',st:[' 240',' 2  ',' ·  ','   ',' ','   ']}
 };
-const DKEY=[['시각디자인','design'],['메디컬','mbeauty'],['뷰티','beauty'],['미용','beauty'],['보건의료행정','medadmin'],['의료행정','medadmin'],['사회복지','welfare'],['복지','welfare'],['반도체','semi'],['전자','semi'],['방송','media'],['영상','media'],['미디어','media'],['인테리어','interior'],['건축','arch'],['국방','army'],['군사','army'],['부사관','army'],['조리','cook'],['제과','cook'],['제빵','cook'],['호텔','tour'],['관광','tour'],['항공','air'],['회계','office'],['경영','office'],['금융','office'],['컴퓨터','it'],['IT','it'],['it','it'],['소프트웨어','it'],['물리치료','pt'],['간호','nurse'],['유아','child'],['보육','child'],['기계','eng'],['전기','eng'],['디자인','design'],['보건','medadmin']];
+const DKEY=[['','design'],['','mbeauty'],['','beauty'],['','beauty'],['','medadmin'],['','medadmin'],['','welfare'],['','welfare'],['','semi'],['','semi'],['','media'],['','media'],['','media'],['','interior'],['','arch'],['','army'],['','army'],['','army'],['','cook'],['','cook'],['','cook'],['','tour'],['','tour'],['','air'],['','office'],['','office'],['','office'],['','it'],['IT','it'],['it','it'],['','it'],['','pt'],['','nurse'],['','child'],['','child'],['','eng'],['','eng'],['','design'],['','medadmin']];
 state.dept='gen';state.goalTxt='';state.path='';state.stones={};
 const SKEY='moa-tp-uni-v1';
 function save(){push();try{localStorage.setItem(SKEY,JSON.stringify({sys:state.sys,grade:state.grade,phone:state.phone,free:state.free,fc:state.fc,blocks:state.blocks,nextId,dept:state.dept,goalTxt:state.goalTxt,path:state.path,stones:state.stones}))}catch(e){}}
@@ -335,7 +335,7 @@ try{SID=localStorage.getItem('moa-tp-sid')||'';if(!SID){SID=Math.random().toStri
 function saveCls(){try{CLS?localStorage.setItem(CKEY,JSON.stringify(CLS)):localStorage.removeItem(CKEY)}catch(e){}}
 function initClass(){
   let c='',hc='';try{const q=new URLSearchParams(location.search);c=(q.get('c')||'').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8);hc=(q.get('hc')||'').replace(/[^0-9]/g,'').slice(0,4)}catch(e){}
-  // 허브 입장 코드로 들어온 학생 (2026-10-28): 허브 QR 하나로 우리 반 시간 지도에 모임
+  //      (2026-10-28):  QR      
   if(!c&&hc.length===4){fetch('/api/class',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({a:'hub',hc,level:'uni'})}).then(r=>r.ok?r.json():null).then(j=>{
     try{const u=new URL(location.href);u.searchParams.delete('hc');if(j&&j.code)u.searchParams.set('c',j.code);history.replaceState(null,'',u)}catch(e){}
     if(j&&j.code)initClass()}).catch(()=>{});return}
@@ -360,7 +360,7 @@ function setSeg(el,val){el.querySelectorAll('button').forEach(b=>b.setAttribute(
 function renderGrades(){
   const g=$('#grade');g.innerHTML='';
   if(state.grade>state.sys)state.grade=state.sys;
-  for(let i=1;i<=state.sys;i++){const b=document.createElement('button');b.type='button';b.dataset.v=i;b.textContent=i+'학년';g.appendChild(b)}
+  for(let i=1;i<=state.sys;i++){const b=document.createElement('button');b.type='button';b.dataset.v=i;b.textContent=i+'';g.appendChild(b)}
   setSeg(g,state.grade);
 }
 function gradDate(){
@@ -370,14 +370,14 @@ function gradDate(){
 function calc(){
   const gd=gradDate();const now=new Date();
   const weeks=Math.max(0,Math.round((gd-now)/(7*864e5)));
-  $('#gradDate').textContent=`졸업 예정 ${gd.getFullYear()}년 2월 기준`;
+  $('#gradDate').textContent=`  ${gd.getFullYear()} 2 `;
   $('#weeks').textContent=fmt(weeks);
   $('#freeTotal').textContent=fmt(state.free*weeks);
   $('#phoneTotal').textContent=fmt(state.phone*7*weeks);
-  $('#phoneOut').textContent=state.phone+'시간';
-  $('#freeOut').textContent=state.free+'시간';
+  $('#phoneOut').textContent=state.phone+'';
+  $('#freeOut').textContent=state.free+'';
   save();
-  $('#gain').innerHTML=`하루 폰 사용을 <b>1시간</b>만 줄이면 졸업까지 <b>${fmt(7*weeks)}시간</b>이 생겨요.`;
+  $('#gain').innerHTML=`   <b>1</b>   <b>${fmt(7*weeks)}</b> .`;
 }
 
 // Google Calendar template link
@@ -394,7 +394,7 @@ function untilUTC(){const e=semEndDate();const u=new Date(e.getFullYear(),e.getM
 function blockRule(days){return 'FREQ=WEEKLY;BYDAY='+days.join(',')+';UNTIL='+untilUTC()}
 function gcal({title,start,dur,rrule,details}){
   const end=new Date(start.getTime()+dur*60000);
-  const p=new URLSearchParams({action:'TEMPLATE',text:title,dates:`${stamp(start)}/${stamp(end)}`,ctz:'Asia/Seoul',details:details||'MOA 시간 설계도'});
+  const p=new URLSearchParams({action:'TEMPLATE',text:title,dates:`${stamp(start)}/${stamp(end)}`,ctz:'Asia/Seoul',details:details||'MOA  '});
   if(rrule)p.set('recur','RRULE:'+rrule);
   return 'https://calendar.google.com/calendar/render?'+p.toString();
 }
@@ -405,15 +405,15 @@ function renderBlocks(){
   state.blocks.forEach(b=>{
     const el=document.createElement('div');el.className='block'+(b.isNew?' new':'');delete b.isNew;
     const ok=b.title.trim()&&b.days.length;
-    const href=ok?gcal({title:b.title,start:nextDate(b.days,b.time),dur:b.dur,rrule:blockRule(b.days),details:'MOA 시간 설계도 · 타임블록 (학기 말까지 반복)'}):'#';
-    const dayTxt=DAYS.filter(d=>b.days.includes(d[0])).map(d=>d[1]).join('·')||'요일 선택';
+    const href=ok?gcal({title:b.title,start:nextDate(b.days,b.time),dur:b.dur,rrule:blockRule(b.days),details:'MOA   ·  (  )'}):'#';
+    const dayTxt=DAYS.filter(d=>b.days.includes(d[0])).map(d=>d[1]).join('·')||' ';
     el.innerHTML=`
-      <div class="row"><input type="text" id="t${b.id}" value="${b.title.replace(/"/g,'&quot;')}" aria-label="할 일"><button class="del" type="button" data-del="${b.id}">삭제</button></div>
+      <div class="row"><input type="text" id="t${b.id}" value="${b.title.replace(/"/g,'&quot;')}" aria-label=" "><button class="del" type="button" data-del="${b.id}"></button></div>
       <div class="days">${DAYS.map(d=>`<button type="button" data-day="${d[0]}" aria-pressed="${b.days.includes(d[0])}">${d[1]}</button>`).join('')}</div>
-      <div class="row"><input type="time" id="tm${b.id}" value="${b.time}" aria-label="시작 시간">
-        <select id="d${b.id}" aria-label="진행 시간">${[30,60,90,120,180].map(v=>`<option value="${v}" ${v===b.dur?'selected':''}>${v<60?v+'분':(v/60)+'시간'}</option>`).join('')}</select></div>
-      <div class="row" style="align-items:center"><span class="summary" style="flex:1">매주 ${dayTxt} ${b.time} · ${semEndDate().getMonth()+1}월 ${semEndDate().getDate()}일까지</span>
-        <a class="btn" href="${href}" target="_blank" rel="noopener" aria-disabled="${!ok}">캘린더에 추가</a></div>`;
+      <div class="row"><input type="time" id="tm${b.id}" value="${b.time}" aria-label=" ">
+        <select id="d${b.id}" aria-label=" ">${[30,60,90,120,180].map(v=>`<option value="${v}" ${v===b.dur?'selected':''}>${v<60?v+'':(v/60)+''}</option>`).join('')}</select></div>
+      <div class="row" style="align-items:center"><span class="summary" style="flex:1"> ${dayTxt} ${b.time} · ${semEndDate().getMonth()+1} ${semEndDate().getDate()}</span>
+        <a class="btn" href="${href}" target="_blank" rel="noopener" aria-disabled="${!ok}"> </a></div>`;
     el.querySelector('input[type=text]').addEventListener('change',e=>{b.title=e.target.value;renderBlocks()});
     el.querySelector('input[type=time]').addEventListener('change',e=>{b.time=e.target.value||'19:00';renderBlocks()});
     el.querySelector('select').addEventListener('change',e=>{b.dur=+e.target.value;renderBlocks()});
@@ -428,13 +428,13 @@ function renderRoutines(){
   const lastDay=new Date(now.getFullYear(),now.getMonth()+1,0,20,0,0);
   const semEnd=semEndDate();
   const list=ROUTINES=[
-    {title:'주간 10분 리뷰',sub:'매주 일요일 21:00 · 지킨 블록 / 못 지킨 이유 / 바꿀 것 1개',start:nextDate(['SU'],'21:00'),dur:10,rrule:'FREQ=WEEKLY;BYDAY=SU'},
-    {title:'월간 점검',sub:'매월 마지막 날 20:00 · 이번 달 할 일 3개 점검',start:lastDay<now?new Date(now.getFullYear(),now.getMonth()+2,0,20):lastDay,dur:30,rrule:'FREQ=MONTHLY;BYMONTHDAY=-1'},
-    {title:'학기 말 설계도 수정',sub:`${semEnd.getMonth()+1}월 ${semEnd.getDate()}일 20:00 · 다음 학기 큰 돌 다시 놓기`,start:semEnd,dur:60}
+    {title:' 10 ',sub:'  21:00 ·   /    /   1',start:nextDate(['SU'],'21:00'),dur:10,rrule:'FREQ=WEEKLY;BYDAY=SU'},
+    {title:' ',sub:'   20:00 ·     3 ',start:lastDay<now?new Date(now.getFullYear(),now.getMonth()+2,0,20):lastDay,dur:30,rrule:'FREQ=MONTHLY;BYMONTHDAY=-1'},
+    {title:'   ',sub:`${semEnd.getMonth()+1} ${semEnd.getDate()} 20:00 ·      `,start:semEnd,dur:60}
   ];
-  if(CLS){const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+14,20,0);list.push({title:'2주 실천 체크',sub:`${d.getMonth()+1}월 ${d.getDate()}일 20:00 · 질문 3개, 1분 (일정 안 링크)`,start:d,dur:10,link:checkUrl()})}
+  if(CLS){const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+14,20,0);list.push({title:'2  ',sub:`${d.getMonth()+1} ${d.getDate()} 20:00 ·  3, 1 (  )`,start:d,dur:10,link:checkUrl()})}
   $('#routines').innerHTML=list.map(r=>`<div class="routine"><div><b>${r.title}</b><small>${r.sub}</small></div>
-    <a class="btn" href="${gcal({title:r.title,start:r.start,dur:r.dur,rrule:r.rrule,details:'MOA 시간 설계도 · 점검 루틴\n'+r.sub+(r.link?'\n'+r.link:'')})}" target="_blank" rel="noopener">추가</a></div>`).join('');
+    <a class="btn" href="${gcal({title:r.title,start:r.start,dur:r.dur,rrule:r.rrule,details:'MOA   ·  \n'+r.sub+(r.link?'\n'+r.link:'')})}" target="_blank" rel="noopener"></a></div>`).join('');
 }
 
 $('#sys').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;state.sys=+b.dataset.v;setSeg($('#sys'),state.sys);renderGrades();calc();renderLong()});
@@ -442,13 +442,13 @@ $('#grade').addEventListener('click',e=>{const b=e.target.closest('button');if(!
 $('#phone').addEventListener('input',e=>{state.phone=+e.target.value;calc()});
 $('#free').addEventListener('input',e=>{state.free=+e.target.value;calc()});
 const FC_ITEMS=[
-  {k:'sleep',n:'수면',u:'시간 × 7일',s:'하루 평균',v:7,m:7,max:14},
-  {k:'class',n:'수업',u:'시간 (일주일)',s:'시간표 합계',v:18,m:1,max:60},
-  {k:'job',n:'알바',u:'시간 (일주일)',s:'없으면 0',v:0,m:1,max:60},
-  {k:'move',n:'이동',u:'시간 × 5일',s:'하루 통학 왕복',v:1.5,m:5,max:8},
-  {k:'meal',n:'식사 · 준비',u:'시간 × 7일',s:'씻기·식사 하루 평균',v:2,m:7,max:8}
+  {k:'sleep',n:'',u:' × 7',s:' ',v:7,m:7,max:14},
+  {k:'class',n:'',u:' ()',s:' ',v:18,m:1,max:60},
+  {k:'job',n:'',u:' ()',s:' 0',v:0,m:1,max:60},
+  {k:'move',n:'',u:' × 5',s:'  ',v:1.5,m:5,max:8},
+  {k:'meal',n:' · ',u:' × 7',s:'·  ',v:2,m:7,max:8}
 ];
-// 일주일 자유시간 찾기 (2026-10-29): 168시간에서 꼭 써야 하는 시간을 빼 자유시간을 찾고, [이 시간으로 정하기]로 위 슬라이더에 넣음
+//    (2026-10-29): 168       , [  ]   
 const FC_COL=['#0F1E3D','#2F6BFF','#0E9563','#EA6A0C','#8B5CF6'];
 function fcVals(){const v=state.fc||{};return FC_ITEMS.map(it=>{const x=v[it.k];return (x===undefined||x==='')?it.v:+x||0})}
 function fcHours(){return fcVals().map((x,i)=>x*FC_ITEMS[i].m)}
@@ -461,11 +461,11 @@ function fcRender(){
 function fcDraw(){
   const h=fcHours(),used=h.reduce((a,b)=>a+b,0),free=fcFree();
   $('#fcBar').innerHTML=h.map((x,i)=>'<i style="width:'+Math.min(100,x/168*100)+'%;background:'+FC_COL[i]+'"></i>').join('')+'<i style="flex:1;background:var(--pink)"></i>';
-  $('#fcLg').innerHTML=FC_ITEMS.map((it,i)=>'<span style="--c:'+FC_COL[i]+'">'+it.n+' '+fmt(h[i])+'</span>').join('')+'<span style="--c:var(--pink)">자유시간 '+free+'</span>';
-  $('#fcRes').innerHTML=used>168?'적은 시간이 168시간을 넘어요. 숫자를 다시 확인해 주세요.':'168 − '+fmt(used)+' = 내 일주일 자유시간 <b>'+free+'</b>시간';
+  $('#fcLg').innerHTML=FC_ITEMS.map((it,i)=>'<span style="--c:'+FC_COL[i]+'">'+it.n+' '+fmt(h[i])+'</span>').join('')+'<span style="--c:var(--pink)"> '+free+'</span>';
+  $('#fcRes').innerHTML=used>168?'  168 .    .':'168 − '+fmt(used)+' =    <b>'+free+'</b>';
 }
 $('#fcRows').addEventListener('input',e=>{const k=e.target.dataset.fc;if(!k)return;state.fc=Object.assign({},state.fc,{[k]:e.target.value});fcDraw();save()});
-$('#fcUse').addEventListener('click',()=>{const f=Math.min(+$('#free').max,fcFree());state.free=f;$('#free').value=f;calc();toast('일주일 자유시간을 '+f+'시간으로 정했어요')});
+$('#fcUse').addEventListener('click',()=>{const f=Math.min(+$('#free').max,fcFree());state.free=f;$('#free').value=f;calc();toast('  '+f+' ')});
 $('#addBlock').addEventListener('click',()=>{state.blocks.push({id:nextId++,title:'',days:[],time:'19:00',dur:60});renderBlocks();const ins=document.querySelectorAll('#blocks input[type=text]');ins[ins.length-1]?.focus()});
 document.querySelectorAll('#sys button,#grade button').forEach(b=>b.type='button');
 function icsStamp(d){return stamp(d)}
@@ -474,8 +474,8 @@ function buildICS(){
   const now=new Date();const utc=now.toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
   const ev=[];let n=0;
   const add=(title,start,dur,rrule,desc)=>{const end=new Date(start.getTime()+dur*60000);ev.push(['BEGIN:VEVENT','UID:moa-'+utc+'-'+(n++)+'@moa-timeplan','DTSTAMP:'+utc,'DTSTART;TZID=Asia/Seoul:'+icsStamp(start),'DTEND;TZID=Asia/Seoul:'+icsStamp(end),...(rrule?['RRULE:'+rrule]:[]),'SUMMARY:'+esc(title),'DESCRIPTION:'+esc(desc),'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+esc(title),'TRIGGER:-PT10M','END:VALARM','END:VEVENT'].join('\r\n'))};
-  state.blocks.filter(b=>b.title.trim()&&b.days.length).forEach(b=>add(b.title,nextDate(b.days,b.time),b.dur,blockRule(b.days),'MOA 시간 설계도 · 타임블록 (학기 말까지 반복)'));
-  ROUTINES.forEach(r=>add(r.title,r.start,r.dur,r.rrule,'MOA 시간 설계도 · 점검 루틴 · '+r.sub+(r.link?' · '+r.link:'')));
+  state.blocks.filter(b=>b.title.trim()&&b.days.length).forEach(b=>add(b.title,nextDate(b.days,b.time),b.dur,blockRule(b.days),'MOA   ·  (  )'));
+  ROUTINES.forEach(r=>add(r.title,r.start,r.dur,r.rrule,'MOA   ·   · '+r.sub+(r.link?' · '+r.link:'')));
   return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//JINROMOA//MOA TIMEPLAN//KO','CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VTIMEZONE','TZID:Asia/Seoul','BEGIN:STANDARD','DTSTART:19700101T000000','TZOFFSETFROM:+0900','TZOFFSETTO:+0900','TZNAME:KST','END:STANDARD','END:VTIMEZONE',...ev,'END:VCALENDAR'].join('\r\n');
 }
 $('#ics').addEventListener('click',()=>{
@@ -487,8 +487,8 @@ function periods(){
   const now=new Date();const y=now.getFullYear();const acad=now.getMonth()>=2?y:y-1;const out=[];
   for(let A=acad;A<=acad+(state.sys-state.grade);A++){
     const g=state.grade+(A-acad);
-    const seg=[['1학기',new Date(A,5,20)],['여름방학',new Date(A,7,31)],['2학기',new Date(A,11,20)],['겨울방학',new Date(A+1,1,28)]];
-    seg.forEach(([n,end],i)=>{if(end<now)return;if(g===state.sys&&i===3)return;out.push(g+'학년 '+n)});
+    const seg=[['1',new Date(A,5,20)],['',new Date(A,7,31)],['2',new Date(A,11,20)],['',new Date(A+1,1,28)]];
+    seg.forEach(([n,end],i)=>{if(end<now)return;if(g===state.sys&&i===3)return;out.push(g+' '+n)});
   }
   return out;
 }
@@ -498,26 +498,26 @@ function renderLong(){
   sel.value=state.dept;const pr=PRESETS[state.dept]||PRESETS.gen;
   const ta=$('#goalTxt');ta.placeholder=pr.goal;if(ta.value!==state.goalTxt)ta.value=state.goalTxt;
   $('#path').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===state.path)));
-  $('#chips').innerHTML='<span class="lbl">추천 큰 돌 · 누르면 이번 학기에 들어가요</span>'+pr.st.map(t=>`<button type="button" data-chip="${t}">${t}</button>`).join('');
+  $('#chips').innerHTML='<span class="lbl">   ·    </span>'+pr.st.map(t=>`<button type="button" data-chip="${t}">${t}</button>`).join('');
   const ps=periods();
   $('#stones').innerHTML=ps.map((lab,i)=>{const v=state.stones[lab]||['',''];
-    return `<div class="stone${i===0?' now':''}"><div class="ph">${lab}${i===0?'<em>이번 학기</em>':''}</div>
-    ${[0,1].map(j=>`<div class="r"><input type="text" data-p="${lab}" data-j="${j}" value="${(v[j]||'').replace(/"/g,'&quot;')}" placeholder="큰 돌 ${j+1}" aria-label="${lab} 큰 돌 ${j+1}">${i===0?`<button class="tob" type="button" data-tob="${j}">블록으로</button>`:''}</div>`).join('')}</div>`}).join('');
+    return `<div class="stone${i===0?' now':''}"><div class="ph">${lab}${i===0?'<em> </em>':''}</div>
+    ${[0,1].map(j=>`<div class="r"><input type="text" data-p="${lab}" data-j="${j}" value="${(v[j]||'').replace(/"/g,'&quot;')}" placeholder="  ${j+1}" aria-label="${lab}   ${j+1}">${i===0?`<button class="tob" type="button" data-tob="${j}"></button>`:''}</div>`).join('')}</div>`}).join('');
 }
 $('#dept').addEventListener('change',e=>{state.dept=e.target.value;try{const u=new URL(location.href);u.searchParams.set('d',state.dept);history.replaceState(null,'',u)}catch(_){ }save();renderLong()});
 $('#goalTxt').addEventListener('input',e=>{state.goalTxt=e.target.value;save()});
 $('#path').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;state.path=state.path===b.dataset.v?'':b.dataset.v;save();renderLong()});
 $('#chips').addEventListener('click',e=>{const b=e.target.closest('[data-chip]');if(!b)return;const lab=periods()[0];const v=state.stones[lab]||['',''];const i=v[0]?(v[1]?-1:1):0;
-  if(i<0){toast('이번 학기 큰 돌 2칸이 다 찼어요. 지우고 다시 눌러 주세요.');return}
-  v[i]=b.dataset.chip;state.stones[lab]=v;save();renderLong();toast(lab+' 큰 돌에 넣었어요')});
+  if(i<0){toast('    2  .    .');return}
+  v[i]=b.dataset.chip;state.stones[lab]=v;save();renderLong();toast(lab+'   ')});
 $('#stones').addEventListener('input',e=>{const t=e.target;if(!t.dataset.p)return;const v=state.stones[t.dataset.p]||['',''];v[+t.dataset.j]=t.value;state.stones[t.dataset.p]=v;save()});
 $('#stones').addEventListener('click',e=>{const b=e.target.closest('[data-tob]');if(!b)return;const lab=periods()[0];const t=((state.stones[lab]||[])[+b.dataset.tob]||'').trim();
-  if(!t){toast('큰 돌을 먼저 적어 주세요');return}
-  if(state.blocks.some(x=>x.title===t)){toast('이미 블록으로 만들었어요');return}
+  if(!t){toast('    ');return}
+  if(state.blocks.some(x=>x.title===t)){toast('  ');return}
   state.blocks.push({id:nextId++,title:t,days:[],time:'19:00',dur:60,isNew:true});renderBlocks();
-  document.getElementById('plan').scrollIntoView({behavior:'smooth'});toast('블록을 만들었어요. 요일과 시간을 골라 주세요')});
+  document.getElementById('plan').scrollIntoView({behavior:'smooth'});toast(' .    ')});
 
-// 설계도 카드
+//  
 function wrap(ctx,text,x,y,maxW,lh,maxLines){const words=String(text).split('');let line='',lines=[];for(const ch of words){if(ctx.measureText(line+ch).width>maxW){lines.push(line);line=ch}else line+=ch}if(line)lines.push(line);lines=lines.slice(0,maxLines||9);lines.forEach((l,i)=>ctx.fillText(l,x,y+i*lh));return lines.length*lh}
 function rr(ctx,x,y,w,h,r,fill){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();ctx.fillStyle=fill;ctx.fill()}
 let cardBlob=null;
@@ -526,31 +526,31 @@ async function makeCard(){
   try{await Promise.all(['900 80px "Noto Sans KR"','700 40px "Noto Sans KR"','500 30px "Noto Sans KR"'].map(f=>document.fonts.load(f)))}catch(e){}
   const W=1080,H=1350,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');const FF='"Noto Sans KR",sans-serif';
   x.fillStyle='#D6E8FD';x.fillRect(0,0,W,H);
-  x.fillStyle='#0F1E3D';x.font='900 30px '+FF;x.fillText('MOA FORMULA',72,92);x.font='700 30px '+FF;x.fillText('· 시간 설계도',72+x.measureText('MOA FORMULA ').width+6,92);
+  x.fillStyle='#0F1E3D';x.font='900 30px '+FF;x.fillText('MOA FORMULA',72,92);x.font='700 30px '+FF;x.fillText('·  ',72+x.measureText('MOA FORMULA ').width+6,92);
   x.fillRect(72,118,W-144,4);
-  x.font='900 84px '+FF;x.fillText('나의',72,236);const tw=x.measureText('시간 설계도').width;rr(x,66,262,tw+28,108,8,'#FF3D6E');x.fillStyle='#fff';x.fillText('시간 설계도',80,348);
-  const gd=gradDate();const weeks=Math.max(0,Math.round((gd-new Date())/(7*864e5)));const nm='졸업';
-  x.textAlign='right';x.fillStyle='#FF3D6E';x.font='900 150px '+FF;x.fillText(weeks,W-150,350);x.fillStyle='#0F1E3D';x.font='900 46px '+FF;x.fillText('주',W-90,350);x.font='700 28px '+FF;x.fillText(nm+'까지 남은 시간 · '+state.sys+'년제 '+state.grade+'학년',W-72,198);x.textAlign='left';
+  x.font='900 84px '+FF;x.fillText('',72,236);const tw=x.measureText(' ').width;rr(x,66,262,tw+28,108,8,'#FF3D6E');x.fillStyle='#fff';x.fillText(' ',80,348);
+  const gd=gradDate();const weeks=Math.max(0,Math.round((gd-new Date())/(7*864e5)));const nm='';
+  x.textAlign='right';x.fillStyle='#FF3D6E';x.font='900 150px '+FF;x.fillText(weeks,W-150,350);x.fillStyle='#0F1E3D';x.font='900 46px '+FF;x.fillText('',W-90,350);x.font='700 28px '+FF;x.fillText(nm+'   · '+state.sys+' '+state.grade+'',W-72,198);x.textAlign='left';
   let y=410;
   const card=(title,col,draw)=>{const top=y;const h=draw(top+96,true);rr(x,72,top,W-144,h+100,22,'#fff');x.fillStyle=col;x.fillRect(72,top,W-144,8);x.fillStyle=col;x.font='900 30px '+FF;x.fillText(title,108,top+64);x.fillStyle='#0F1E3D';draw(top+110,false);y=top+h+130};
-  const goalT=state.goalTxt.trim()||'(졸업 목표를 적어 보세요)';
-  card('졸업 목표'+(state.path?' · '+state.path:''),'#2F6BFF',(yy,m)=>{x.font='700 36px '+FF;if(m){const t=x.getTransform();const h=wrap({measureText:s=>x.measureText(s),fillText:()=>{}},goalT,0,0,W-216,52,3);return h}return wrap(x,goalT,108,yy+20,W-216,52,3)});
+  const goalT=state.goalTxt.trim()||'(   )';
+  card(' '+(state.path?' · '+state.path:''),'#2F6BFF',(yy,m)=>{x.font='700 36px '+FF;if(m){const t=x.getTransform();const h=wrap({measureText:s=>x.measureText(s),fillText:()=>{}},goalT,0,0,W-216,52,3);return h}return wrap(x,goalT,108,yy+20,W-216,52,3)});
   const lab=periods()[0];const st=(state.stones[lab]||[]).filter(t=>t&&t.trim());
-  card(lab+' 큰 돌','#2F6BFF',(yy,m)=>{const L=st.length?st:['(이번 학기 큰 돌을 적어 보세요)'];if(m)return L.length*56;x.font='700 36px '+FF;L.forEach((t,i)=>x.fillText('● '+t,108,yy+20+i*56));return L.length*56});
+  card(lab+'  ','#2F6BFF',(yy,m)=>{const L=st.length?st:['(     )'];if(m)return L.length*56;x.font='700 36px '+FF;L.forEach((t,i)=>x.fillText(' '+t,108,yy+20+i*56));return L.length*56});
   const blAll=state.blocks.filter(b=>b.title.trim()&&b.days.length);const bl=blAll.slice(0,3);
-  card('이번 주 타임블록'+(blAll.length>3?' · 외 '+(blAll.length-3)+'개':''),'#0E9563',(yy,m)=>{const L=bl.length?bl.map(b=>`${b.title}  ·  ${DAYS.filter(d=>b.days.includes(d[0])).map(d=>d[1]).join('')} ${b.time}`):['(요일을 고른 블록이 없어요)'];if(m)return L.length*56;x.font='700 34px '+FF;L.forEach((t,i)=>{x.fillText('▢ '+t,108,yy+20+i*56)});return L.length*56});
+  card('  '+(blAll.length>3?' ·  '+(blAll.length-3)+'':''),'#0E9563',(yy,m)=>{const L=bl.length?bl.map(b=>`${b.title}  ·  ${DAYS.filter(d=>b.days.includes(d[0])).map(d=>d[1]).join('')} ${b.time}`):['(   )'];if(m)return L.length*56;x.font='700 34px '+FF;L.forEach((t,i)=>{x.fillText(' '+t,108,yy+20+i*56)});return L.length*56});
   x.fillStyle='#0F1E3D';x.fillRect(72,H-130,W-144,4);
   try{const lg=new Image();lg.src='/logo.png';await lg.decode();x.drawImage(lg,72,H-104,54,54)}catch(e){}
-  x.font='700 30px '+FF;x.fillText('진로모아커리어센터',140,H-72);x.font='500 22px '+FF;x.fillText('plan.jinromoa.co.kr',140,H-40);
-  // 센터 안내 (2026-10-30 대표님 승인): 오른쪽 아래 인스타그램 QR
+  x.font='700 30px '+FF;x.fillText('',140,H-72);x.font='500 22px '+FF;x.fillText('plan.jinromoa.co.kr',140,H-40);
+  //   (2026-10-30  ):    QR
   const qs=104,qx=W-72-qs,qy=H-120;const qc=centerQR();if(qc){x.fillStyle='#fff';x.fillRect(qx-6,qy-6,qs+12,qs+12);x.drawImage(qc,qx,qy,qs,qs)}
-  x.fillStyle='#0F1E3D';x.textAlign='right';x.font='900 26px '+FF;x.fillText('@jinromoa',(qc?qx-20:W-72),H-74);x.font='500 22px '+FF;x.fillText('취업 준비 팁 · 인스타그램',(qc?qx-20:W-72),H-42);x.textAlign='left';
+  x.fillStyle='#0F1E3D';x.textAlign='right';x.font='900 26px '+FF;x.fillText('@jinromoa',(qc?qx-20:W-72),H-74);x.font='500 22px '+FF;x.fillText('   · ',(qc?qx-20:W-72),H-42);x.textAlign='left';
   return new Promise(r=>c.toBlob(b=>{cardBlob=b;r(URL.createObjectURL(b))},'image/png'));
 }
-$('#mkCard').addEventListener('click',async()=>{const b=$('#mkCard');b.textContent='만드는 중…';const url=await makeCard();$('#pvImg').src=url;$('#pv').style.display='block';b.textContent='다시 만들기';$('#pv').scrollIntoView({behavior:'smooth',block:'center'})});
-$('#saveCard').addEventListener('click',async()=>{if(!cardBlob)return;const f=new File([cardBlob],'나의-시간-설계도.png',{type:'image/png'});
-  try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'나의 시간 설계도'});return}}catch(e){if(e&&e.name==='AbortError')return}
-  const a=document.createElement('a');a.href=URL.createObjectURL(cardBlob);a.download='나의-시간-설계도.png';document.body.appendChild(a);a.click();a.remove()});
+$('#mkCard').addEventListener('click',async()=>{const b=$('#mkCard');b.textContent=' …';const url=await makeCard();$('#pvImg').src=url;$('#pv').style.display='block';b.textContent=' ';$('#pv').scrollIntoView({behavior:'smooth',block:'center'})});
+$('#saveCard').addEventListener('click',async()=>{if(!cardBlob)return;const f=new File([cardBlob],'--.png',{type:'image/png'});
+  try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'  '});return}}catch(e){if(e&&e.name==='AbortError')return}
+  const a=document.createElement('a');a.href=URL.createObjectURL(cardBlob);a.download='--.png';document.body.appendChild(a);a.click();a.remove()});
 $('#resetAll').addEventListener('click',()=>{try{localStorage.removeItem(SKEY)}catch(e){}location.href=location.pathname+(state.dept!=='gen'?'?d='+state.dept:'')});
 
 load();
@@ -559,11 +559,11 @@ $('#phone').value=state.phone;$('#free').value=state.free;setSeg($('#sys'),state
 $('#jLeave').addEventListener('click',()=>{CLS=null;saveCls();$('#joinbar').hidden=true;renderRoutines();try{const u=new URL(location.href);u.searchParams.delete('c');u.searchParams.delete('hc');history.replaceState(null,'',u)}catch(e){}});
 initClass();
 renderGrades();calc();renderBlocks();renderRoutines();renderLong();fcRender();
-// 쓰임새 기록 (2026-10-24 · 2단계 정리): 화면이 열린 횟수만 운영보드로 보냄 (이름·기기 정보는 보내지 않음)
+//   (2026-10-24 · 2 ):      (·   )
 function moaUse(s){try{var k=String(s),t=Date.now(),m=window.__moaUse||(window.__moaUse={});if(m[k]&&t-m[k]<600000)return;m[k]=t;var u='https://jinromoa-board.vercel.app/api/usage',b=JSON.stringify({a:'tp',s:k});if(navigator.sendBeacon)navigator.sendBeacon(u,b);else fetch(u,{method:'POST',body:b,keepalive:true,mode:'no-cors'})}catch(e){}}
-// 센터 안내 숨기기 (2026-10-31): 허브가 ?nc=1 을 붙여 넘김 → 이 탭에서 기억 (반 코드로 주소가 바뀌어도 유지)
+//    (2026-10-31):  ?nc=1    →    (    )
 (function(){var b=document.getElementById('ccCenter');if(!b)return;var nc=false;try{var q=location.search;if(/[?&]nc=1/.test(q))sessionStorage.setItem('moa-tp-nc','1');else if(/[?&]hc=/.test(q))sessionStorage.removeItem('moa-tp-nc');nc=sessionStorage.getItem('moa-tp-nc')==='1'}catch(e){nc=/[?&]nc=1/.test(location.search)}if(nc){b.hidden=true;return}b.querySelectorAll('a[data-cc]').forEach(function(a){a.addEventListener('click',function(){moaUse(a.getAttribute('data-cc'))})})})();
-// 진·장·단·점 영역이 화면 가운데에 들어오면 한 번 기록 (같은 영역은 10분에 한 번)
+// ···        (  10  )
 try{const USE={diag:'diag',long:'long',plan:'block',check:'check'};const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)moaUse(USE[en.target.id])}),{rootMargin:'-40% 0px -40% 0px'});Object.keys(USE).forEach(id=>{const el=document.getElementById(id);if(el)io.observe(el)})}catch(e){}
 $('#mkCard').addEventListener('click',()=>moaUse('card'));
 $('#ics').addEventListener('click',()=>moaUse('ics'));
