@@ -2,7 +2,7 @@
 <html lang="ko"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>  ·   </title>
+<title>시간 설계도 · 강사 수업 모드</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
 <style>
@@ -57,7 +57,7 @@ h2{font-size:17px;font-weight:900;margin:0 0 12px}
 .row{display:flex;gap:8px;flex-wrap:wrap}
 footer{display:flex;align-items:center;gap:8px;margin-top:28px;padding-top:14px;border-top:2px solid var(--fg);font-weight:700;font-size:14px}
 footer img{width:28px;height:28px}
-/*   (2026-10-29 ·    ,  ) */
+/* 허브 버튼 (2026-10-29 · 다른 화면과 같은 모양, 허브 쪽색) */
 .hrt{display:flex;align-items:center;gap:10px;flex:none}
 .logo span{white-space:nowrap}
 .hub{flex:none;font-size:13px;font-weight:500;color:#1F3A6E;text-decoration:none;border:1px solid #1F3A6E;border-radius:999px;padding:6px 12px;white-space:nowrap;background:#FFFFFF}
@@ -65,88 +65,88 @@ footer img{width:28px;height:28px}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></symbol></svg>
 <div class="wrap">
-  <header><div class="logo">MOA FORMULA<span> ·  </span></div><div class="hrt"><div class="tag"><svg><use href="#lock"/></svg> </div><a class="hub" href="https://moa-hub.vercel.app/"></a></div></header>
+  <header><div class="logo">MOA FORMULA<span> · 시간 설계도</span></div><div class="hrt"><div class="tag"><svg><use href="#lock"/></svg>수업 모드</div><a class="hub" href="https://moa-hub.vercel.app/">허브</a></div></header>
 
-  <!--   -->
+  <!-- 수업 만들기 -->
   <section id="setup" class="hide">
-    <h1> <br><span class="hl"> </span></h1>
-    <p class="lead">   QR .         .</p>
+    <h1>우리 반<br><span class="hl">시간 지도</span></h1>
+    <p class="lead">수업을 만들면 학생용 QR이 나와요. 학생이 입력한 숫자가 이름 없이 이 화면에 실시간으로 모여요.</p>
     <div class="grid" style="max-width:560px">
       <div class="card">
-        <div class="field"><label for="title"> </label><input id="title" type="text" maxlength="40" placeholder=")   3 1"></div>
-        <div class="field"><label></label><div class="seg" id="level"><button type="button" data-v="uni" aria-pressed="true"></button><button type="button" data-v="high" aria-pressed="false"></button></div></div>
-        <div class="field"><label for="dept"> <span class="small">( ·        )</span></label><input id="dept" type="text" maxlength="20" placeholder=")  ·  · "></div>
-        <button class="tbtn full" id="create" type="button"><svg><use href="#lock"/></svg> </button>
+        <div class="field"><label for="title">수업 이름</label><input id="title" type="text" maxlength="40" placeholder="예) 대구대 사회복지과 3학년 1반"></div>
+        <div class="field"><label>대상</label><div class="seg" id="level"><button type="button" data-v="uni" aria-pressed="true">대학생</button><button type="button" data-v="high" aria-pressed="false">고등학생</button></div></div>
+        <div class="field"><label for="dept">학과 <span class="small">(선택 · 학생 앱의 추천 큰 돌이 이 학과로 맞춰져요)</span></label><input id="dept" type="text" maxlength="20" placeholder="예) 사회복지 · 조리 · 전기"></div>
+        <button class="tbtn full" id="create" type="button"><svg><use href="#lock"/></svg>수업 만들기</button>
         <div class="err" id="err1"></div>
       </div>
-      <div class="card recent hide" id="recentBox"><h2>  </h2><div id="recent"></div></div>
+      <div class="card recent hide" id="recentBox"><h2>최근 만든 수업</h2><div id="recent"></div></div>
     </div>
   </section>
 
-  <!--  -->
+  <!-- 대시보드 -->
   <section id="dash" class="hide">
-    <h1 id="dTitle"> </h1>
-    <p class="lead"><span class="live"></span> <span class="small" id="upd"></span></p>
+    <h1 id="dTitle">우리 반</h1>
+    <p class="lead"><span class="live">실시간</span> <span class="small" id="upd"></span></p>
     <div class="grid dash">
       <div class="grid" style="align-content:start">
         <div class="card qrbox">
-          <h2 style="margin:0" id="qrH">  QR</h2>
+          <h2 style="margin:0" id="qrH">학생 입장 QR</h2>
           <div id="qr"></div>
-          <div class="small"> </div><div class="code" id="dCode">----</div>
+          <div class="small">수업 코드</div><div class="code" id="dCode">----</div>
           <div class="small" id="sUrl"></div>
-          <div class="small"> ·     ·  ·    .</div>
+          <div class="small">카톡 · 인스타 안이 아니라 사파리 · 크롬 · 삼성인터넷으로 열게 해 주세요.</div>
         </div>
         <div class="card"><div class="row">
-          <button class="tbtn" id="copyLink" type="button"><svg><use href="#lock"/></svg>  </button>
-          <button class="tbtn" id="newClass" type="button"> </button></div>
-          <p class="small" style="margin:10px 0 0">        .   .</p></div>
+          <button class="tbtn" id="copyLink" type="button"><svg><use href="#lock"/></svg>강사 링크 복사</button>
+          <button class="tbtn" id="newClass" type="button">새 수업</button></div>
+          <p class="small" style="margin:10px 0 0">강사 링크로 다른 기기에서도 이 화면을 열 수 있어요. 학생에게는 보내지 마세요.</p></div>
       </div>
       <div class="grid" style="align-content:start">
         <div class="grid stats">
-          <div class="card stat"><small> </small><b id="sN">0</b><span></span></div>
-          <div class="card stat"><small>   </small><b id="sPhone">0</b><span>/</span></div>
-          <div class="card stat"><small>  </small><b id="sFree">0</b><span>/</span></div>
-          <div class="card stat hl"><small> </small><b id="sBlocks">0</b><span></span></div>
+          <div class="card stat"><small>참여 학생</small><b id="sN">0</b><span>명</span></div>
+          <div class="card stat"><small>반 평균 폰 사용</small><b id="sPhone">0</b><span>시간/일</span></div>
+          <div class="card stat"><small>반 평균 자유시간</small><b id="sFree">0</b><span>시간/주</span></div>
+          <div class="card stat hl"><small>등록된 타임블록</small><b id="sBlocks">0</b><span>개</span></div>
         </div>
         <div class="card">
-          <h2>  </h2>
+          <h2>우리 반 졸업까지</h2>
           <div class="grid stats" style="grid-template-columns:1fr 1fr">
-            <div class="stat"><small>  </small><b id="sFreeT">0</b><span></span></div>
-            <div class="stat hl"><small>   1 </small><b id="sGain">0</b><span></span></div>
+            <div class="stat"><small>모두의 자유시간 합계</small><b id="sFreeT">0</b><span>시간</span></div>
+            <div class="stat hl"><small>모두 하루 폰 1시간만 줄이면</small><b id="sGain">0</b><span>시간</span></div>
           </div>
-          <div class="say" id="sSay">      .</div>
+          <div class="say" id="sSay">학생들이 입장하면 우리 반 숫자가 여기에 나와요.</div>
         </div>
         <div class="card">
-          <h2> </h2>
-          <div class="bar" style="--c:var(--pink)"> ·  <i><em id="bJin" style="width:0"></em></i><output id="oJin">0/0</output></div>
-          <div class="bar" style="--c:var(--blue)"> ·  ·  <i><em id="bJang" style="width:0"></em></i><output id="oJang">0/0</output></div>
-          <div class="bar" style="--c:var(--green)"> ·  <i><em id="bDan" style="width:0"></em></i><output id="oDan">0/0</output></div>
-          <div class="bar" style="--c:var(--orange)"> ·  <i><em id="bJeom" style="width:0"></em></i><output id="oJeom">0/0</output></div>
+          <h2>진행 현황</h2>
+          <div class="bar" style="--c:var(--pink)">진 · 시간 진단<i><em id="bJin" style="width:0"></em></i><output id="oJin">0/0</output></div>
+          <div class="bar" style="--c:var(--blue)">장 · 목표 · 큰 돌<i><em id="bJang" style="width:0"></em></i><output id="oJang">0/0</output></div>
+          <div class="bar" style="--c:var(--green)">단 · 캘린더 등록<i><em id="bDan" style="width:0"></em></i><output id="oDan">0/0</output></div>
+          <div class="bar" style="--c:var(--orange)">점 · 점검 알림<i><em id="bJeom" style="width:0"></em></i><output id="oJeom">0/0</output></div>
         </div>
         <div class="card">
-          <h2>    </h2>
+          <h2>하루 폰 사용 시간 분포</h2>
           <div class="hist" id="hist"></div>
         </div>
         <div class="card">
-          <h2>   </h2>
-          <div id="paths" class="small">   .</div>
+          <h2>졸업 후 진로 선택</h2>
+          <div id="paths" class="small">아직 고른 학생이 없어요.</div>
         </div>
         <div class="card">
-          <h2>2   </h2>
-          <p class="small" style="margin:-6px 0 10px">  2  ' '  .    .</p>
+          <h2>2주 후 실천 체크</h2>
+          <p class="small" style="margin:-6px 0 10px">학생 캘린더에 2주 뒤 '실천 체크' 일정이 들어가요. 응답이 오면 여기에 모여요.</p>
           <div class="grid stats" style="grid-template-columns:repeat(3,1fr)">
-            <div class="stat"><small></small><b id="cN">0</b><span></span></div>
-            <div class="stat hl"><small> 1  </small><b id="cKept">0</b><span>%</span></div>
-            <div class="stat"><small> </small><b id="cKeep">0</b><span>/ 5</span></div>
+            <div class="stat"><small>응답</small><b id="cN">0</b><span>명</span></div>
+            <div class="stat hl"><small>블록 1회 이상 실천</small><b id="cKept">0</b><span>%</span></div>
+            <div class="stat"><small>계속할 의향</small><b id="cKeep">0</b><span>/ 5</span></div>
           </div>
-          <div class="say" id="report">     .</div>
-          <button class="tbtn" id="copyReport" type="button" style="margin-top:10px">  </button>
+          <div class="say" id="report">응답이 모이면 결과보고서에 쓸 문장이 만들어져요.</div>
+          <button class="tbtn" id="copyReport" type="button" style="margin-top:10px">결과보고서 문장 복사</button>
         </div>
       </div>
     </div>
   </section>
 
-  <footer><img src="/logo.png" alt="" width="28" height="28"></footer>
+  <footer><img src="/logo.png" alt="" width="28" height="28">진로모아커리어센터</footer>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
@@ -156,7 +156,7 @@ function recent(){try{return JSON.parse(localStorage.getItem(RKEY)||'[]')}catch(
 function remember(c){try{const l=recent().filter(x=>x.code!==c.code);l.unshift(c);localStorage.setItem(RKEY,JSON.stringify(l.slice(0,12)))}catch(e){}}
 let level='uni';
 $('#level').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;level=b.dataset.v;$('#level').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)))});
-async function api(body){const r=await fetch('/api/class',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json().catch(()=>({error:'  .'}));if(!r.ok)throw new Error(j.error||'');return j}
+async function api(body){const r=await fetch('/api/class',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json().catch(()=>({error:'응답을 읽지 못했어요.'}));if(!r.ok)throw new Error(j.error||'오류');return j}
 $('#create').addEventListener('click',async()=>{const b=$('#create');b.disabled=true;$('#err1').textContent='';
   try{const j=await api({a:'create',title:$('#title').value.trim(),level,dept:$('#dept').value.trim()});
     remember({code:j.code,key:j.key,title:j.title,level:j.level,dept:$('#dept').value.trim(),t:Date.now()});
@@ -164,38 +164,38 @@ $('#create').addEventListener('click',async()=>{const b=$('#create');b.disabled=
 function studentUrl(c){const base=location.origin+(c.level==='high'?'/high/':'/');const p=new URLSearchParams({c:c.code});if(c.dept)p.set('d',c.dept);return base+'?'+p.toString()}
 let timer=null,last=null;
 async function load(c){
-  try{const r=await fetch('/api/class?a=dash&code='+c.code+'&key='+c.key,{cache:'no-store'});const d=await r.json();if(!r.ok)throw new Error(d.error);last=d;draw(d);$('#upd').textContent=new Date().toLocaleTimeString('ko-KR')+'  · 5 '}
+  try{const r=await fetch('/api/class?a=dash&code='+c.code+'&key='+c.key,{cache:'no-store'});const d=await r.json();if(!r.ok)throw new Error(d.error);last=d;draw(d);$('#upd').textContent=new Date().toLocaleTimeString('ko-KR')+' 기준 · 5초마다 새로고침'}
   catch(e){$('#upd').textContent=e.message}
 }
 function setBar(id,v,n){$('#b'+id).style.width=(n?Math.round(v/n*100):0)+'%';$('#o'+id).textContent=v+'/'+n}
 function draw(d){
-  $('#dTitle').innerHTML=d.title.replace(/[<>&]/g,'')+'<br><span class="hl"> </span>';
+  $('#dTitle').innerHTML=d.title.replace(/[<>&]/g,'')+'<br><span class="hl">시간 지도</span>';
   $('#sN').textContent=d.n;$('#sPhone').textContent=f1(d.phone);$('#sFree').textContent=f1(d.free);$('#sBlocks').textContent=d.blocks;
   $('#sFreeT').textContent=fmt(d.freeTotal);$('#sGain').textContent=fmt(d.gain);
-  if(d.n)$('#sSay').innerHTML=`  ${d.n}   1 ,  <b>${fmt(d.gain)}</b> .   <b>${fmt(d.gain/d.n)}</b>.`;
+  if(d.n)$('#sSay').innerHTML=`우리 반 ${d.n}명이 하루 폰 1시간씩만 줄이면, 졸업까지 <b>${fmt(d.gain)}시간</b>이 생겨요. 한 사람당 <b>${fmt(d.gain/d.n)}시간</b>이에요.`;
   setBar('Jin',d.steps.jin,d.n);setBar('Jang',d.steps.jang,d.n);setBar('Dan',d.steps.dan,d.n);setBar('Jeom',d.steps.jeom,d.n);
-  const L=['2 ','2~4','4~6','6~8','8 '];const mx=Math.max(1,...d.hist);
+  const L=['2시간 미만','2~4','4~6','6~8','8시간 이상'];const mx=Math.max(1,...d.hist);
   $('#hist').innerHTML=d.hist.map((v,i)=>`<div><b>${v}</b><i style="height:${Math.round(v/mx*100)}%"></i>${L[i]}</div>`).join('');
   const P=Object.entries(d.paths).sort((a,b)=>b[1]-a[1]);
-  $('#paths').innerHTML=P.length?P.map(([k,v])=>`<div class="bar" style="--c:var(--blue)">${k}<i><em style="width:${Math.round(v/d.n*100)}%"></em></i><output>${v}</output></div>`).join(''):'   .';
+  $('#paths').innerHTML=P.length?P.map(([k,v])=>`<div class="bar" style="--c:var(--blue)">${k}<i><em style="width:${Math.round(v/d.n*100)}%"></em></i><output>${v}명</output></div>`).join(''):'아직 고른 학생이 없어요.';
   const k=d.check;$('#cN').textContent=k.n;$('#cKept').textContent=k.n?Math.round(k.kept1/k.n*100):0;$('#cKeep').textContent=k.n?f1(k.keep):0;
-  $('#report').textContent=k.n?`  ${d.n}  ${k.n} 2    ,  ${Math.round(k.kept1/k.n*100)}%    1  .    ${Math.round(k.review/k.n*100)}%,    ${f1(k.keep)}(5 ).`:'     .';
+  $('#report').textContent=k.n?`참여 학생 ${d.n}명 중 ${k.n}명이 2주 후 실천 체크에 응답했으며, 응답자의 ${Math.round(k.kept1/k.n*100)}%가 직접 설계한 타임블록을 1회 이상 실천했다. 주간 리뷰 실행 ${Math.round(k.review/k.n*100)}%, 지속 의향 평균 ${f1(k.keep)}점(5점 만점).`:'응답이 모이면 결과보고서에 쓸 문장이 만들어져요.';
 }
-async function copy(t,btn){try{await navigator.clipboard.writeText(t);const o=btn.innerHTML;btn.textContent='';setTimeout(()=>btn.innerHTML=o,1500)}catch(e){prompt(' ',t)}}
+async function copy(t,btn){try{await navigator.clipboard.writeText(t);const o=btn.innerHTML;btn.textContent='복사했어요';setTimeout(()=>btn.innerHTML=o,1500)}catch(e){prompt('복사해서 쓰세요',t)}}
 function start(){
   const q=new URLSearchParams(location.search);const code=(q.get('c')||'').toUpperCase(),key=q.get('k')||'';
   const R=recent();
   if(!code||!key){$('#setup').classList.remove('hide');
-    if(R.length){$('#recentBox').classList.remove('hide');$('#recent').innerHTML=R.map(c=>`<a href="?c=${c.code}&k=${c.key}">${c.title.replace(/[<>&]/g,'')}<small>${c.code} · ${c.level==='high'?'':''} · ${new Date(c.t).toLocaleDateString('ko-KR')}</small></a>`).join('')}
+    if(R.length){$('#recentBox').classList.remove('hide');$('#recent').innerHTML=R.map(c=>`<a href="?c=${c.code}&k=${c.key}">${c.title.replace(/[<>&]/g,'')}<small>${c.code} · ${c.level==='high'?'고등':'대학'} · ${new Date(c.t).toLocaleDateString('ko-KR')}</small></a>`).join('')}
     return}
   const saved=R.find(x=>x.code===code)||{};const c={code,key,level:saved.level||'uni',dept:saved.dept||''};
   $('#dash').classList.remove('hide');$('#dCode').textContent=code;
   fetch('/api/class?a=info&code='+code).then(r=>r.json()).then(i=>{if(i.level){c.level=i.level;c.dept=i.dept||c.dept}
-    //      (2026-10-28):   QR    QR  
-    if(i.hub){$('#qrH').textContent=' ';$('#qr').innerHTML='<div class="small" style="max-width:260px;line-height:1.7">  <b>   '+String(i.hub).replace(/[^0-9]/g,'')+'</b> .<br>  QR  [  ]     .</div>';$('#sUrl').textContent='';
+    // 허브 입장 코드로 묶인 반 (2026-10-28): 학생은 허브 QR로 들어오므로 이 화면의 QR은 띄우지 않음
+    if(i.hub){$('#qrH').textContent='학생 입장';$('#qr').innerHTML='<div class="small" style="max-width:260px;line-height:1.7">이 반은 <b>허브 입장 코드 '+String(i.hub).replace(/[^0-9]/g,'')+'</b>로 모여요.<br>학생은 허브 QR로 들어와 [나의 시간 설계도]를 누르면 이 화면에 자동으로 집계돼요.</div>';$('#sUrl').textContent='';
       if(!saved.code)remember({code,key,title:i.title||code,level:c.level,dept:c.dept,t:Date.now()});return}
     const u=studentUrl(c);$('#sUrl').textContent=decodeURIComponent(u.replace(/^https?:\/\//,''));$('#qr').innerHTML='';
-    try{new QRCode($('#qr'),{text:u,width:440,height:440,colorDark:'#0F1E3D',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})}catch(e){$('#qr').innerHTML='<div class="small" style="width:220px">QR  .     .</div>'}
+    try{new QRCode($('#qr'),{text:u,width:440,height:440,colorDark:'#0F1E3D',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M})}catch(e){$('#qr').innerHTML='<div class="small" style="width:220px">QR을 불러오지 못했어요. 아래 주소를 화면에 띄워 주세요.</div>'}
     if(!saved.code)remember({code,key,title:i.title||code,level:c.level,dept:c.dept,t:Date.now()})}).catch(()=>{});
   $('#copyLink').addEventListener('click',e=>copy(location.href,e.currentTarget));
   $('#copyReport').addEventListener('click',e=>copy($('#report').textContent,e.currentTarget));
@@ -203,7 +203,7 @@ function start(){
   load(c);timer=setInterval(()=>{if(!document.hidden)load(c)},5000);
 }
 start();
-//   (2026-10-24 · 2 ):      (·   )
+// 쓰임새 기록 (2026-10-24 · 2단계 정리): 화면이 열린 횟수만 운영보드로 보냄 (이름·기기 정보는 보내지 않음)
 function moaUse(s){try{var k=String(s),t=Date.now(),m=window.__moaUse||(window.__moaUse={});if(m[k]&&t-m[k]<600000)return;m[k]=t;var u='https://jinromoa-board.vercel.app/api/usage',b=JSON.stringify({a:'tp',s:k});if(navigator.sendBeacon)navigator.sendBeacon(u,b);else fetch(u,{method:'POST',body:b,keepalive:true,mode:'no-cors'})}catch(e){}}
 moaUse('class');
 </script>
